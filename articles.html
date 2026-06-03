@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="description" content="مقالات معاذ عليان - دراسات وتحليلات مكتوبة في مقارنة الأديان والنقد الكتابي وقضايا فكرية."/>
+<meta name="keywords" content="مقالات معاذ عليان, دراسات إسلامية مسيحية, النقد الكتابي, الرد على الشبهات"/>
+<meta name="author" content="معاذ عليان"/>
+<meta name="robots" content="index, follow"/>
+
+<!-- Open Graph Tags -->
+<meta property="og:title" content="المقالات | معاذ عليان — باحث في مقارنة الأديان"/>
+<meta property="og:description" content="اقرأ أحدث المقالات والدراسات لمعاذ عليان في مقارنة الأديان."/>
+<meta property="og:type" content="article"/>
+<meta property="og:url" content="https://moazalian.com/articles.html"/>
+<meta property="og:image" content="https://moazalian.com/assets/og-articles.jpg"/>
+
+<title>المقالات | معاذ عليان — باحث في مقارنة الأديان</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;900&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+<script>
+  (function(){
+    const savedTheme = localStorage.getItem('theme');
+    if(savedTheme){
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    }else{
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  })();
+</script>
+</head>
+<body>
+
+<!-- ── شريط تقدم القراءة ── -->
+<div id="reading-progress" style="position:fixed;top:0;right:0;left:0;height:3px;background:linear-gradient(to left,var(--gold),var(--gold-l));width:0%;z-index:9999;transition:width .1s linear;"></div>
+
+<!-- ── شريط تخصيص القراءة (Floating Toolbar) ── -->
+<div id="reading-toolbar" class="reading-toolbar" aria-label="شريط تخصيص القراءة">
+  <button id="font-increase" class="toolbar-btn" title="تكبير الخط" aria-label="تكبير الخط"><i class="bi bi-type-bold"></i>A+</button>
+  <button id="font-decrease" class="toolbar-btn" title="تصغير الخط" aria-label="تصغير الخط"><i class="bi bi-type"></i>A-</button>
+  <button id="bg-toggle" class="toolbar-btn" title="تغيير خلفية القراءة" aria-label="تغيير خلفية"><i class="bi bi-circle-half"></i></button>
+</div>
+
+<!-- ── Quote Tooltip ── -->
+<div id="quote-tooltip" class="quote-tooltip" style="display:none">
+  <span style="font-size:.72rem;color:var(--text2);margin-left:.5rem">شارك الاقتباس:</span>
+  <a id="share-twitter" href="#" target="_blank" title="X (Twitter)" class="qtip-btn"><i class="bi bi-twitter-x"></i></a>
+  <a id="share-facebook" href="#" target="_blank" title="فيسبوك" class="qtip-btn"><i class="bi bi-facebook"></i></a>
+  <a id="share-whatsapp" href="#" target="_blank" title="واتساب" class="qtip-btn"><i class="bi bi-whatsapp"></i></a>
+</div>
+
+<header class="fixed-top" style="z-index: 1060; width: 100%;">
+  <div id="live-banner" class="live-banner" hidden>
+  </div>
+  <nav class="navbar navbar-expand-lg" id="nav">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        معاذ عليان
+        <small>باحث في مقارنة الأديان</small>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nm" aria-label="تبديل القائمة">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="nm">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-1">
+          <li class="nav-item"><a class="nav-link" href="index.html">الرئيسية</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">عن معاذ</a></li>
+          <li class="nav-item"><a class="nav-link" href="videos.html">فيديوهات</a></li>
+          <li class="nav-item"><a class="nav-link" href="references.html">مراجع</a></li>
+          <li class="nav-item"><a class="nav-link" href="articles.html">مقالات</a></li>
+          <li class="nav-item"><a class="nav-link" href="books.html">كتب</a></li>
+          <li class="nav-item"><a class="nav-link" href="dawah.html">الدعوة للإسلام</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">تواصل</a></li>
+        </ul>
+        <a href="contact.html#support" class="btn btn-gold btn-sm d-flex align-items-center gap-2">
+          <i class="bi bi-heart-fill"></i>ادعم القناة
+        </a>
+        <button id="theme-toggle" class="theme-toggle ms-2" aria-label="تبديل المظهر">
+          <i class="bi bi-moon-fill dark-icon"></i>
+          <i class="bi bi-sun-fill light-icon"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main style="padding-top: 80px;">
+  <!-- ══════════════════ ARTICLES ══════════════════ -->
+  <section id="articles" class="py-5">
+    <div class="container">
+      <div class="sec-head reveal">
+        <div class="sec-eyebrow"><i class="bi bi-newspaper"></i>القراءة</div>
+        <h1 class="sec-title">المقالات</h1>
+        <p class="sec-sub">دراسات وتحليلات مكتوبة في مقارنة الأديان والنقد الكتابي</p>
+      </div>
+      <div class="row g-4">
+
+        <div class="col-md-6 col-lg-4 reveal">
+          <div class="art-card">
+            <div class="art-img" style="background:linear-gradient(135deg,#0d1a2d,#1a2d0d)">
+              <i class="art-img-icon bi bi-book-half"></i>
+              <div class="art-img-overlay"></div>
+            </div>
+            <div class="art-body">
+              <span class="art-cat"><i class="bi bi-tag-fill me-1"></i>نقد كتابي</span>
+              <div class="art-title">هل الكتاب المقدس كلام الله؟ — دراسة في الأصالة والتحريف</div>
+              <div class="art-excerpt">يستعرض هذا المقال الأدلة الأكاديمية من المصادر المسيحية ذاتها التي تُثبت أن الكتاب المقدس الحالي مر بتحريفات جوهرية على مدى قرون...</div>
+              <div class="art-footer">
+                <div class="art-date"><i class="bi bi-calendar3"></i>يناير 2025</div>
+                <a href="#" class="btn btn-sm btn-outline-gold" style="font-size:.75rem;padding:.3rem .8rem">اقرأ المقال</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 reveal">
+          <div class="art-card">
+            <div class="art-img" style="background:linear-gradient(135deg,#1a0d2d,#0d1a2d)">
+              <i class="art-img-icon bi bi-search"></i>
+              <div class="art-img-overlay"></div>
+            </div>
+            <div class="art-body">
+              <span class="art-cat"><i class="bi bi-tag-fill me-1"></i>مقارنة أديان</span>
+              <div class="art-title">الثالوث في التاريخ — متى نشأت هذه العقيدة؟</div>
+              <div class="art-excerpt">تتبع تاريخي لنشأة عقيدة الثالوث من أصولها الوثنية إلى تبنّيها رسمياً في مجمع نيقية عام 325م، وما قبله المسيحيون الأوائل...</div>
+              <div class="art-footer">
+                <div class="art-date"><i class="bi bi-calendar3"></i>مارس 2025</div>
+                <a href="#" class="btn btn-sm btn-outline-gold" style="font-size:.75rem;padding:.3rem .8rem">اقرأ المقال</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 reveal">
+          <div class="art-card">
+            <div class="art-img" style="background:linear-gradient(135deg,#1a1a0d,#2d1a0d)">
+              <i class="art-img-icon bi bi-shield-check"></i>
+              <div class="art-img-overlay"></div>
+            </div>
+            <div class="art-body">
+              <span class="art-cat"><i class="bi bi-tag-fill me-1"></i>رد الشبهات</span>
+              <div class="art-title">رد على شبهة "الإسلام انتشر بالسيف" — وثائق وأرقام</div>
+              <div class="art-excerpt">رد موثق بالأرقام والحقائق التاريخية على أكثر الشبهات شيوعاً ضد الإسلام، مع استشهادات من مؤرخين غربيين...</div>
+              <div class="art-footer">
+                <div class="art-date"><i class="bi bi-calendar3"></i>فبراير 2025</div>
+                <a href="#" class="btn btn-sm btn-outline-gold" style="font-size:.75rem;padding:.3rem .8rem">اقرأ المقال</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 reveal">
+          <div class="art-card">
+            <div class="art-img" style="background:linear-gradient(135deg,#0d2d1a,#0d1a2d)">
+              <i class="art-img-icon bi bi-person-fill"></i>
+              <div class="art-img-overlay"></div>
+            </div>
+            <div class="art-body">
+              <span class="art-cat"><i class="bi bi-tag-fill me-1"></i>مقارنة أديان</span>
+              <div class="art-title">السيدة مريم في الإسلام والمسيحية — مقارنة دقيقة</div>
+              <div class="art-excerpt">دراسة مقارنة شاملة لصورة السيدة مريم في القرآن والكتاب المقدس، وكيف يُعلي الإسلام مكانتها فوق ما أعطته إياه الكنيسة...</div>
+              <div class="art-footer">
+                <div class="art-date"><i class="bi bi-calendar3"></i>أبريل 2025</div>
+                <a href="#" class="btn btn-sm btn-outline-gold" style="font-size:.75rem;padding:.3rem .8rem">اقرأ المقال</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 reveal">
+          <div class="art-card">
+            <div class="art-img" style="background:linear-gradient(135deg,#2d0d1a,#1a0d0d)">
+              <i class="art-img-icon bi bi-file-text"></i>
+              <div class="art-img-overlay"></div>
+            </div>
+            <div class="art-body">
+              <span class="art-cat"><i class="bi bi-tag-fill me-1"></i>منكرو السنة</span>
+              <div class="art-title">حجية السنة النبوية — أدلة قرآنية حاسمة</div>
+              <div class="art-excerpt">يُجيب هذا المقال بدليل قرآني صريح على حجية السنة ويرد على أبرز ما يُثيره منكروها من شبهات...</div>
+              <div class="art-footer">
+                <div class="art-date"><i class="bi bi-calendar3"></i>يونيو 2025</div>
+                <a href="#" class="btn btn-sm btn-outline-gold" style="font-size:.75rem;padding:.3rem .8rem">اقرأ المقال</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 reveal">
+          <div class="art-card">
+            <div class="art-img" style="background:linear-gradient(135deg,#0d1a1a,#0d2d2d)">
+              <i class="art-img-icon bi bi-globe"></i>
+              <div class="art-img-overlay"></div>
+            </div>
+            <div class="art-body">
+              <span class="art-cat"><i class="bi bi-tag-fill me-1"></i>قضايا فكرية</span>
+              <div class="art-title">لماذا يعتنق الغربيون الإسلام؟ — دراسة إحصائية</div>
+              <div class="art-excerpt">تحليل لأبرز الدراسات الغربية حول دوافع اعتناق الإسلام في أوروبا وأمريكا، مع شهادات مباشرة من أشخاص اعتنقوا...</div>
+              <div class="art-footer">
+                <div class="art-date"><i class="bi bi-calendar3"></i>مايو 2025</div>
+                <a href="#" class="btn btn-sm btn-outline-gold" style="font-size:.75rem;padding:.3rem .8rem">اقرأ المقال</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="footer-logo">معاذ عليان</div>
+        <div class="footer-desc">إعلامي وباحث ومناظر مصري متخصص في مقارنة الأديان والحوار الإسلامي المسيحي منذ عام 2004.</div>
+      </div>
+      <div class="col-md-2 col-6">
+        <div style="font-size:.78rem;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin-bottom:.8rem">المحتوى</div>
+        <a href="live.html" class="footer-link">البث المباشر</a>
+        <a href="videos.html" class="footer-link">الفيديوهات</a>
+        <a href="debates.html" class="footer-link">المناظرات</a>
+        <a href="articles.html" class="footer-link">المقالات</a>
+      </div>
+      <div class="col-md-2 col-6">
+        <div style="font-size:.78rem;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin-bottom:.8rem">المكتبة</div>
+        <a href="references.html" class="footer-link">المراجع</a>
+        <a href="books.html" class="footer-link">الكتب PDF</a>
+        <a href="about.html" class="footer-link">عن معاذ</a>
+        <a href="contact.html#support" class="footer-link">الدعم</a>
+      </div>
+      <div class="col-md-4">
+        <div style="font-size:.78rem;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin-bottom:.8rem">اشترك في النشرة</div>
+        <p class="footer-desc" style="margin-bottom:.9rem">استقبل أحدث المحاضرات والمقالات في بريدك</p>
+        <div class="d-flex gap-2">
+          <input type="email" class="form-ctrl" placeholder="بريدك الإلكتروني" style="flex:1" aria-label="البريد الإلكتروني"/>
+          <button class="btn btn-gold px-3" aria-label="إرسال"><i class="bi bi-send"></i></button>
+        </div>
+      </div>
+    </div>
+    <hr class="footer-divider"/>
+    <div class="footer-bottom">
+      جميع الحقوق محفوظة © 2025 معاذ عليان — موقع رسمي لمحتوى مقارنة الأديان
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

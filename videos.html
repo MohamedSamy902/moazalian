@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="description" content="فيديوهات معاذ عليان - محاضرات وحلقات ومقاطع في مقارنة الأديان والرد على الشبهات."/>
+<meta name="keywords" content="معاذ عليان, فيديوهات معاذ عليان, مقارنة الأديان, نقد كتابي, رد الشبهات"/>
+<meta name="author" content="معاذ عليان"/>
+<meta name="robots" content="index, follow"/>
+
+<!-- Open Graph Tags -->
+<meta property="og:title" content="الفيديوهات | معاذ عليان — باحث في مقارنة الأديان"/>
+<meta property="og:description" content="شاهد فيديوهات معاذ عليان في مقارنة الأديان والرد على الشبهات."/>
+<meta property="og:type" content="article"/>
+<meta property="og:url" content="https://moazalian.com/videos.html"/>
+<meta property="og:image" content="https://moazalian.com/assets/og-videos.jpg"/>
+
+<title>الفيديوهات | معاذ عليان — باحث في مقارنة الأديان</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;900&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+<script>
+  (function(){
+    const savedTheme = localStorage.getItem('theme');
+    if(savedTheme){
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    }else{
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  })();
+</script>
+</head>
+<body>
+
+<header class="fixed-top" style="z-index: 1060; width: 100%;">
+  <div id="live-banner" class="live-banner" hidden>
+  </div>
+  <nav class="navbar navbar-expand-lg" id="nav">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        معاذ عليان
+        <small>باحث في مقارنة الأديان</small>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nm" aria-label="تبديل القائمة">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="nm">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-1">
+          <li class="nav-item"><a class="nav-link" href="index.html">الرئيسية</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">عن معاذ</a></li>
+          <li class="nav-item"><a class="nav-link" href="videos.html">فيديوهات</a></li>
+          <li class="nav-item"><a class="nav-link" href="references.html">مراجع</a></li>
+          <li class="nav-item"><a class="nav-link" href="articles.html">مقالات</a></li>
+          <li class="nav-item"><a class="nav-link" href="books.html">كتب</a></li>
+          <li class="nav-item"><a class="nav-link" href="dawah.html">الدعوة للإسلام</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">تواصل</a></li>
+        </ul>
+        <a href="contact.html#support" class="btn btn-gold btn-sm d-flex align-items-center gap-2">
+          <i class="bi bi-heart-fill"></i>ادعم القناة
+        </a>
+        <button id="theme-toggle" class="theme-toggle ms-2" aria-label="تبديل المظهر">
+          <i class="bi bi-moon-fill dark-icon"></i>
+          <i class="bi bi-sun-fill light-icon"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main style="padding-top: 80px;">
+  <!-- ══════════════════ VIDEOS ══════════════════ -->
+  <section id="videos" class="py-5 bg2">
+    <div class="container">
+      <div class="sec-head reveal">
+        <div class="sec-eyebrow"><i class="bi bi-play-btn-fill"></i>المحتوى المرئي</div>
+        <h1 class="sec-title">الفيديوهات</h1>
+        <p class="sec-sub">محاضرات وحلقات ومقاطع في مقارنة الأديان والرد على الشبهات</p>
+      </div>
+
+      <!-- Search + Filter -->
+      <div class="search-wrap reveal">
+        <i class="bi bi-search" style="color:var(--text3)"></i>
+        <input type="text" id="vid-search" placeholder="ابحث في الفيديوهات..." oninput="filterVids()"/>
+      </div>
+      <div class="d-flex gap-2 flex-wrap justify-content-center mb-4 reveal" id="vid-filters">
+        <button class="vid-filter-btn active" data-cat="all" onclick="setFilter(this,'all')">الكل</button>
+        <button class="vid-filter-btn" data-cat="مقارنة أديان" onclick="setFilter(this,'مقارنة أديان')">مقارنة أديان</button>
+        <button class="vid-filter-btn" data-cat="نقد كتابي" onclick="setFilter(this,'نقد كتابي')">نقد كتابي</button>
+        <button class="vid-filter-btn" data-cat="رد الشبهات" onclick="setFilter(this,'رد الشبهات')">رد الشبهات</button>
+        <button class="vid-filter-btn" data-cat="قضايا فكرية" onclick="setFilter(this,'قضايا فكرية')">قضايا فكرية</button>
+        <button class="vid-filter-btn" data-cat="منكرو السنة" onclick="setFilter(this,'منكرو السنة')">منكرو السنة</button>
+      </div>
+
+      <div class="row g-4" id="vid-grid">
+        <!-- Video Card 1 -->
+        <div class="col-md-6 col-lg-4 vid-item reveal" data-cat="مقارنة أديان" data-title="الثالوث في المسيحية حوار ساخن خادم أرثوذكسي">
+          <div class="card-x" style="height:100%">
+            <div class="vid-thumb">
+              <img src="https://i.ytimg.com/vi/UO7RCX1Si70/hqdefault.jpg" alt="الثالوث في المسيحية" loading="lazy"
+                onerror="this.parentElement.innerHTML='<div class=\'yt-play\' style=\'opacity:1;background:var(--bg3);position:absolute;inset:0;display:flex;align-items:center;justify-content:center\'><i class=\'bi bi-play-circle\' style=\'font-size:3rem;color:var(--text3)\'></i></div>'"/>
+              <div class="yt-play"><div class="play-circle"><i class="bi bi-play-fill"></i></div></div>
+              <span class="vid-duration">47:23</span>
+            </div>
+            <div class="vid-body">
+              <span class="vid-cat"><i class="bi bi-tag-fill me-1"></i>مقارنة أديان</span>
+              <div class="vid-title">الثالوث في المسيحية في نقاش ساخن 🔥 حوار مع خادم أرثوذكسي</div>
+              <div class="vid-meta">
+                <i class="bi bi-calendar3"></i><span>أبريل 2026</span>
+                <i class="bi bi-eye ms-2"></i><span>مشاهدات كثيرة</span>
+              </div>
+              <button class="btn btn-sm mt-3 w-100 d-flex align-items-center justify-content-center gap-2"
+                style="background:rgba(196,153,58,.1);border:1px solid var(--border);color:var(--gold);border-radius:6px;font-size:.8rem"
+                onclick="toggleDetail(this,'UO7RCX1Si70')">
+                <i class="bi bi-chevron-down"></i><span>الوصف والمراجع</span>
+              </button>
+            </div>
+            <!-- Expandable Detail -->
+            <div class="vid-detail" id="detail-UO7RCX1Si70">
+              <div class="vid-detail-inner">
+                <div class="yt-frame mb-3">
+                  <iframe src="https://www.youtube.com/embed/UO7RCX1Si70?rel=0"
+                    allowfullscreen loading="lazy" title="embed UO7RCX1Si70"></iframe>
+                </div>
+                <div style="font-size:.85rem;color:var(--text2);line-height:1.9;margin-bottom:1rem">
+                  <strong style="color:var(--text)">وصف الحلقة:</strong><br/>
+                  نقاش ساخن حول عقيدة الثالوث في المسيحية بين معاذ عليان ومحمود داود مع خادم أرثوذكسي. يستعرض معاذ في هذه الحلقة الأدلة النصية من الكتاب المقدس التي تُثبت أن الثالوث عقيدة متأخرة وغير كتابية.
+                </div>
+                <div style="font-size:.82rem;color:var(--gold);font-weight:700;margin-bottom:.7rem">
+                  <i class="bi bi-journal-bookmark-fill me-1"></i>المراجع المستخدمة في الحلقة
+                </div>
+                <div class="ref-media-grid">
+                  <div class="ref-media-item">
+                    <div class="ref-img-thumb"><div class="no-img"><i class="bi bi-book-fill"></i></div></div>
+                    <div class="ref-media-label">الكتاب المقدس — عبرانيين 1:5</div>
+                  </div>
+                  <div class="ref-media-item">
+                    <div class="ref-img-thumb"><div class="no-img"><i class="bi bi-file-earmark-text-fill"></i></div></div>
+                    <div class="ref-media-label">وثائق مجمع نيقية 325م</div>
+                  </div>
+                  <div class="ref-media-item">
+                    <div class="ref-img-thumb"><div class="no-img"><i class="bi bi-image-fill"></i></div></div>
+                    <div class="ref-media-label">Codex Sinaiticus — يوحنا</div>
+                  </div>
+                  <div class="ref-media-item">
+                    <div class="ref-img-thumb"><div class="no-img"><i class="bi bi-camera-video-fill"></i></div></div>
+                    <div class="ref-media-label">اعتراف قسيس بعدم كتابية الثالوث</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Video Card 2 -->
+        <div class="col-md-6 col-lg-4 vid-item reveal" data-cat="قضايا فكرية" data-title="مسيحية تترك المسيحية تعتنق الإسلام كشف أسرار">
+          <div class="card-x" style="height:100%">
+            <div class="vid-thumb">
+              <img src="https://i.ytimg.com/vi/XPxWszAgMmE/hqdefault.jpg" alt="مسيحية تعتنق الإسلام" loading="lazy"
+                onerror="this.parentElement.innerHTML='<div class=\'yt-play\' style=\'opacity:1;background:var(--bg3);position:absolute;inset:0;display:flex;align-items:center;justify-content:center\'><i class=\'bi bi-play-circle\' style=\'font-size:3rem;color:var(--text3)\'></i></div>'"/>
+              <div class="yt-play"><div class="play-circle"><i class="bi bi-play-fill"></i></div></div>
+              <span class="vid-duration">1:12:44</span>
+            </div>
+            <div class="vid-body">
+              <span class="vid-cat"><i class="bi bi-tag-fill me-1"></i>قضايا فكرية</span>
+              <div class="vid-title">مسيحية تترك المسيحية 🔥 تعتنق الإسلام وتكشف أسراراً خطيرة</div>
+              <div class="vid-meta">
+                <i class="bi bi-calendar3"></i><span>مارس 2026</span>
+                <i class="bi bi-eye ms-2"></i><span>مشاهدات كثيرة</span>
+              </div>
+              <button class="btn btn-sm mt-3 w-100 d-flex align-items-center justify-content-center gap-2"
+                style="background:rgba(196,153,58,.1);border:1px solid var(--border);color:var(--gold);border-radius:6px;font-size:.8rem"
+                onclick="toggleDetail(this,'XPxWszAgMmE')">
+                <i class="bi bi-chevron-down"></i><span>الوصف والمراجع</span>
+              </button>
+            </div>
+            <div class="vid-detail" id="detail-XPxWszAgMmE">
+              <div class="vid-detail-inner">
+                <div class="yt-frame mb-3">
+                  <iframe src="https://www.youtube.com/embed/XPxWszAgMmE?rel=0"
+                    allowfullscreen loading="lazy" title="embed XPxWszAgMmE"></iframe>
+                </div>
+                <div style="font-size:.85rem;color:var(--text2);line-height:1.9;margin-bottom:1rem">
+                  <strong style="color:var(--text)">وصف الحلقة:</strong><br/>
+                  قصة مسيحية اعتنقت الإسلام بعد رحلة بحث طويلة، وتكشف أسراراً من داخل الأديرة. تستضيف القناة شخصيتها وتروي تفاصيل رحلتها الإيمانية.
+                </div>
+                <div style="font-size:.82rem;color:var(--gold);font-weight:700;margin-bottom:.7rem">
+                  <i class="bi bi-journal-bookmark-fill me-1"></i>المراجع المستخدمة في الحلقة
+                </div>
+                <div class="ref-media-grid">
+                  <div class="ref-media-item">
+                    <div class="ref-img-thumb"><div class="no-img"><i class="bi bi-image-fill"></i></div></div>
+                    <div class="ref-media-label">صور داخل الأدير</div>
+                  </div>
+                  <div class="ref-media-item">
+                    <div class="ref-img-thumb"><div class="no-img"><i class="bi bi-file-earmark-pdf-fill"></i></div></div>
+                    <div class="ref-media-label">وثائق الكنيسة الداخلية</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Video Card 3 -->
+        <div class="col-md-6 col-lg-4 vid-item reveal" data-cat="مقارنة أديان" data-title="بداية معاذ عليان مقارنة الأديان وسام عبد الله">
+          <div class="card-x" style="height:100%">
+            <div class="vid-thumb">
+              <img src="https://i.ytimg.com/vi/bOFgekx71Sk/hqdefault.jpg" alt="بداية معاذ عليان" loading="lazy"
+                onerror="this.parentElement.innerHTML='<div class=\'yt-play\' style=\'opacity:1;background:var(--bg3);position:absolute;inset:0;display:flex;align-items:center;justify-content:center\'><i class=\'bi bi-play-circle\' style=\'font-size:3rem;color:var(--text3)\'></i></div>'"/>
+              <div class="yt-play"><div class="play-circle"><i class="bi bi-play-fill"></i></div></div>
+              <span class="vid-duration">38:15</span>
+            </div>
+            <div class="vid-body">
+              <span class="vid-cat"><i class="bi bi-tag-fill me-1"></i>مقارنة أديان</span>
+              <div class="vid-title">بداية معاذ عليان في مقارنة الأديان وقصته مع وسام عبد الله</div>
+              <div class="vid-meta">
+                <i class="bi bi-calendar3"></i><span>2021</span>
+                <i class="bi bi-eye ms-2"></i><span>مشاهدات كثيرة</span>
+              </div>
+              <button class="btn btn-sm mt-3 w-100 d-flex align-items-center justify-content-center gap-2"
+                style="background:rgba(196,153,58,.1);border:1px solid var(--border);color:var(--gold);border-radius:6px;font-size:.8rem"
+                onclick="toggleDetail(this,'bOFgekx71Sk')">
+                <i class="bi bi-chevron-down"></i><span>الوصف والمراجع</span>
+              </button>
+            </div>
+            <div class="vid-detail" id="detail-bOFgekx71Sk">
+              <div class="vid-detail-inner">
+                <div class="yt-frame mb-3">
+                  <iframe src="https://www.youtube.com/embed/bOFgekx71Sk?rel=0"
+                    allowfullscreen loading="lazy" title="embed bOFgekx71Sk"></iframe>
+                </div>
+                <div style="font-size:.85rem;color:var(--text2);line-height:1.9;margin-bottom:1rem">
+                  <strong style="color:var(--text)">وصف الحلقة:</strong><br/>
+                  يروي معاذ عليان بدايته في مجال مقارنة الأديان وقصته مع وسام عبد الله على البالتوك قبل 17 سنة، كيف بدأ رحلته بكمبيوتر ومايك وكتب فقط.
+                </div>
+                <div style="font-size:.82rem;color:var(--gold);font-weight:700;margin-bottom:.7rem">
+                  <i class="bi bi-journal-bookmark-fill me-1"></i>مراجع
+                </div>
+                <div class="ref-media-grid">
+                  <div class="ref-media-item">
+                    <div class="ref-img-thumb"><div class="no-img"><i class="bi bi-camera-video-fill"></i></div></div>
+                    <div class="ref-media-label">تسجيل قديم من 2007</div>
+                  </div>
+                  <div class="ref-media-item">
+                    <div class="ref-img-thumb"><div class="no-img"><i class="bi bi-mic-fill"></i></div></div>
+                    <div class="ref-media-label">حوار البالتوك الأصلي</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Video Card 4 -->
+        <div class="col-md-6 col-lg-4 vid-item reveal" data-cat="نقد كتابي" data-title="من كتب التوراة دراسة نقدية موثقة">
+          <div class="card-x" style="height:100%">
+            <div class="vid-thumb">
+              <img src="https://i.ytimg.com/vi/placeholder1/hqdefault.jpg" alt="التوراة" loading="lazy" style="display:none"/>
+              <div class="yt-play" style="opacity:1;position:absolute;inset:0;background:var(--bg3);display:flex;align-items:center;justify-content:center">
+                <i class="bi bi-play-circle" style="font-size:3.5rem;color:var(--text3)"></i>
+              </div>
+              <span class="vid-duration">55:10</span>
+            </div>
+            <div class="vid-body">
+              <span class="vid-cat"><i class="bi bi-tag-fill me-1"></i>نقد كتابي</span>
+              <div class="vid-title">من كتب التوراة؟ — دراسة نقدية موثقة بالمصادر</div>
+              <div class="vid-meta">
+                <i class="bi bi-calendar3"></i><span>2023</span>
+                <i class="bi bi-eye ms-2"></i><span>مشاهدات كثيرة</span>
+              </div>
+              <button class="btn btn-sm mt-3 w-100 d-flex align-items-center justify-content-center gap-2"
+                style="background:rgba(196,153,58,.1);border:1px solid var(--border);color:var(--gold);border-radius:6px;font-size:.8rem"
+                onclick="toggleDetail(this,'tawrat-vid')">
+                <i class="bi bi-chevron-down"></i><span>الوصف والمراجع</span>
+              </button>
+            </div>
+            <div class="vid-detail" id="detail-tawrat-vid">
+              <div class="vid-detail-inner">
+                <div style="font-size:.85rem;color:var(--text2);line-height:1.9;margin-bottom:1rem">
+                  <strong style="color:var(--text)">وصف الحلقة:</strong><br/>
+                  دراسة نقدية معمقة في مسألة كتابة التوراة ونسبها لموسى عليه السلام، مع الاستدلال بالمصادر الأكاديمية والنقد الكتابي الحديث.
+                </div>
+                <div style="font-size:.82rem;color:var(--gold);font-weight:700;margin-bottom:.7rem">
+                  <i class="bi bi-journal-bookmark-fill me-1"></i>المراجع
+                </div>
+                <div class="ref-media-grid">
+                  <div class="ref-media-item">
+                    <div class="ref-img-thumb"><div class="no-img"><i class="bi bi-book-fill"></i></div></div>
+                    <div class="ref-media-label">Misquoting Jesus — Ehrman</div>
+                  </div>
+                  <div class="ref-media-item">
+                    <div class="ref-img-thumb"><div class="no-img"><i class="bi bi-image-fill"></i></div></div>
+                    <div class="ref-media-label">مخطوطة سينائية — التوراة</div>
+                  </div>
+                  <div class="ref-media-item">
+                    <div class="ref-img-thumb"><div class="no-img"><i class="bi bi-file-earmark-text-fill"></i></div></div>
+                    <div class="ref-media-label">The Documentary Hypothesis</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Video Card 5 -->
+        <div class="col-md-6 col-lg-4 vid-item reveal" data-cat="منكرو السنة" data-title="رد على منكري السنة النبوية أدلة">
+          <div class="card-x" style="height:100%">
+            <div class="vid-thumb">
+              <div class="yt-play" style="opacity:1;position:absolute;inset:0;background:var(--bg3);display:flex;align-items:center;justify-content:center">
+                <i class="bi bi-play-circle" style="font-size:3.5rem;color:var(--text3)"></i>
+              </div>
+              <span class="vid-duration">1:05:33</span>
+            </div>
+            <div class="vid-body">
+              <span class="vid-cat"><i class="bi bi-tag-fill me-1"></i>منكرو السنة</span>
+              <div class="vid-title">الرد على منكري السنة النبوية — دليل وافٍ بالأدلة</div>
+              <div class="vid-meta">
+                <i class="bi bi-calendar3"></i><span>2024</span>
+                <i class="bi bi-eye ms-2"></i><span>مشاهدات كثيرة</span>
+              </div>
+              <button class="btn btn-sm mt-3 w-100 d-flex align-items-center justify-content-center gap-2"
+                style="background:rgba(196,153,58,.1);border:1px solid var(--border);color:var(--gold);border-radius:6px;font-size:.8rem"
+                onclick="toggleDetail(this,'sunna-vid')">
+                <i class="bi bi-chevron-down"></i><span>الوصف والمراجع</span>
+              </button>
+            </div>
+            <div class="vid-detail" id="detail-sunna-vid">
+              <div class="vid-detail-inner">
+                <div style="font-size:.85rem;color:var(--text2);line-height:1.9;margin-bottom:1rem">
+                  <strong style="color:var(--text)">وصف الحلقة:</strong><br/>
+                  رد موثق على شبهات منكري السنة النبوية المطهرة، مع أدلة قرآنية ومنطقية على حجية السنة وضرورتها.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Video Card 6 -->
+        <div class="col-md-6 col-lg-4 vid-item reveal" data-cat="رد الشبهات" data-title="الظهورات المريمية حقيقة أم خيال">
+          <div class="card-x" style="height:100%">
+            <div class="vid-thumb">
+              <div class="yt-play" style="opacity:1;position:absolute;inset:0;background:var(--bg3);display:flex;align-items:center;justify-content:center">
+                <i class="bi bi-play-circle" style="font-size:3.5rem;color:var(--text3)"></i>
+              </div>
+              <span class="vid-duration">42:00</span>
+            </div>
+            <div class="vid-body">
+              <span class="vid-cat"><i class="bi bi-tag-fill me-1"></i>رد الشبهات</span>
+              <div class="vid-title">الظهورات المريمية بين الحقيقة والخيال — دراسة موثقة</div>
+              <div class="vid-meta">
+                <i class="bi bi-calendar3"></i><span>2022</span>
+                <i class="bi bi-eye ms-2"></i><span>مشاهدات كثيرة</span>
+              </div>
+              <button class="btn btn-sm mt-3 w-100 d-flex align-items-center justify-content-center gap-2"
+                style="background:rgba(196,153,58,.1);border:1px solid var(--border);color:var(--gold);border-radius:6px;font-size:.8rem"
+                onclick="toggleDetail(this,'maryam-vid')">
+                <i class="bi bi-chevron-down"></i><span>الوصف والمراجع</span>
+              </button>
+            </div>
+            <div class="vid-detail" id="detail-maryam-vid">
+              <div class="vid-detail-inner">
+                <div style="font-size:.85rem;color:var(--text2);line-height:1.9;margin-bottom:1rem">
+                  <strong style="color:var(--text)">وصف الحلقة:</strong><br/>
+                  دراسة في ظاهرة الظهورات المريمية المزعومة وتحليلها في ضوء المصادر الكاثوليكية والأرثوذكسية ذاتها.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-5 reveal">
+        <a href="https://www.youtube.com/c/moazalian/videos" target="_blank" class="btn btn-outline-gold d-inline-flex align-items-center gap-2">
+          <i class="bi bi-youtube"></i>شاهد المزيد على يوتيوب
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="footer-logo">معاذ عليان</div>
+        <div class="footer-desc">إعلامي وباحث ومناظر مصري متخصص في مقارنة الأديان والحوار الإسلامي المسيحي منذ عام 2004.</div>
+      </div>
+      <div class="col-md-2 col-6">
+        <div style="font-size:.78rem;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin-bottom:.8rem">المحتوى</div>
+        <a href="live.html" class="footer-link">البث المباشر</a>
+        <a href="videos.html" class="footer-link">الفيديوهات</a>
+        <a href="debates.html" class="footer-link">المناظرات</a>
+        <a href="articles.html" class="footer-link">المقالات</a>
+      </div>
+      <div class="col-md-2 col-6">
+        <div style="font-size:.78rem;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin-bottom:.8rem">المكتبة</div>
+        <a href="references.html" class="footer-link">المراجع</a>
+        <a href="books.html" class="footer-link">الكتب PDF</a>
+        <a href="about.html" class="footer-link">عن معاذ</a>
+        <a href="contact.html#support" class="footer-link">الدعم</a>
+      </div>
+      <div class="col-md-4">
+        <div style="font-size:.78rem;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin-bottom:.8rem">اشترك في النشرة</div>
+        <p class="footer-desc" style="margin-bottom:.9rem">استقبل أحدث المحاضرات والمقالات في بريدك</p>
+        <div class="d-flex gap-2">
+          <input type="email" class="form-ctrl" placeholder="بريدك الإلكتروني" style="flex:1" aria-label="البريد الإلكتروني"/>
+          <button class="btn btn-gold px-3" aria-label="إرسال"><i class="bi bi-send"></i></button>
+        </div>
+      </div>
+    </div>
+    <hr class="footer-divider"/>
+    <div class="footer-bottom">
+      جميع الحقوق محفوظة © 2025 معاذ عليان — موقع رسمي لمحتوى مقارنة الأديان
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
