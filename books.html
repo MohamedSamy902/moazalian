@@ -3,19 +3,43 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<meta name="description" content="كتب ومؤلفات معاذ عليان - تحميل مجاني لكتب PDF في مقارنة الأديان والنقد الكتابي."/>
-<meta name="keywords" content="كتب معاذ عليان, مؤلفات معاذ عليان, كتب مقارنة الأديان, تحميل كتب مجانية"/>
+<title>الكتب والمؤلفات | تحميل كتب معاذ عليان PDF مجاناً</title>
+<meta name="description" content="مكتبة معاذ عليان: تصفح وحمل مؤلفاته وكتبه مجاناً بصيغة PDF في مقارنة الأديان، النقد الكتابي، والعقيدة."/>
+<meta name="keywords" content="معاذ عليان, مقارنة الأديان, حوار إسلامي مسيحي, نقد كتابي, الإسلام, المسيحية, مناظرات, دعوة"/>
 <meta name="author" content="معاذ عليان"/>
-<meta name="robots" content="index, follow"/>
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"/>
+<meta name="theme-color" content="#121824"/>
+<link rel="canonical" href="https://moazalian.com/books.html" />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://moazalian.com/books.html"/>
+<meta property="og:title" content="الكتب والمؤلفات | تحميل كتب معاذ عليان PDF مجاناً"/>
+<meta property="og:description" content="مكتبة معاذ عليان: تصفح وحمل مؤلفاته وكتبه مجاناً بصيغة PDF في مقارنة الأديان، النقد الكتابي، والعقيدة."/>
+<meta property="og:image" content="https://moazalian.com/assets/og-image.jpg"/>
+<meta property="og:site_name" content="الموقع الرسمي لمعاذ عليان"/>
+<meta property="og:locale" content="ar_AR"/>
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:url" content="https://moazalian.com/books.html"/>
+<meta name="twitter:title" content="الكتب والمؤلفات | تحميل كتب معاذ عليان PDF مجاناً"/>
+<meta name="twitter:description" content="مكتبة معاذ عليان: تصفح وحمل مؤلفاته وكتبه مجاناً بصيغة PDF في مقارنة الأديان، النقد الكتابي، والعقيدة."/>
+<meta name="twitter:image" content="https://moazalian.com/assets/og-image.jpg"/>
+
+
+
+
+
 
 <!-- Open Graph Tags -->
-<meta property="og:title" content="الكتب والمؤلفات | معاذ عليان — باحث في مقارنة الأديان"/>
-<meta property="og:description" content="مكتبة معاذ عليان - تصفح وحمل مؤلفاته بصيغة PDF مجاناً."/>
-<meta property="og:type" content="article"/>
-<meta property="og:url" content="https://moazalian.com/books.html"/>
-<meta property="og:image" content="https://moazalian.com/assets/og-books.jpg"/>
 
-<title>الكتب والمؤلفات | معاذ عليان — باحث في مقارنة الأديان</title>
+
+
+
+
+
+
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
@@ -50,10 +74,16 @@
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-1">
           <li class="nav-item"><a class="nav-link" href="index.html">الرئيسية</a></li>
           <li class="nav-item"><a class="nav-link" href="about.html">عن معاذ</a></li>
-          <li class="nav-item"><a class="nav-link" href="videos.html">فيديوهات</a></li>
-          <li class="nav-item"><a class="nav-link" href="references.html">مراجع</a></li>
-          <li class="nav-item"><a class="nav-link" href="articles.html">مقالات</a></li>
-          <li class="nav-item"><a class="nav-link" href="books.html">كتب</a></li>
+          <!-- <li class="nav-item"><a class="nav-link" href="videos.html">فيديوهات</a></li> -->
+          <li class="nav-item dropdown dropdown-hover">
+              <a class="nav-link dropdown-toggle" href="#" id="libraryDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-i18n="library">المكتبة</a>
+              <ul class="dropdown-menu shadow-sm border-0" aria-labelledby="libraryDropdown" style="background: var(--card); border: 1px solid var(--border) !important; border-radius: 12px; text-align: right;">
+                <li><a class="dropdown-item py-2" href="references.html" style="color: var(--text); font-size: 0.9rem;" data-i18n="references">مراجع</a></li>
+                <li><a class="dropdown-item py-2" href="books.html" style="color: var(--text); font-size: 0.9rem;" data-i18n="books">كتب</a></li>
+                <li><a class="dropdown-item py-2" href="articles.html" style="color: var(--text); font-size: 0.9rem;" data-i18n="articles">مقالات</a></li>
+                <li><a class="dropdown-item py-2" href="videos.html" style="color: var(--text); font-size: 0.9rem;" data-i18n="articles">فيديوهات</a></li>
+              </ul>
+            </li>
           <li class="nav-item"><a class="nav-link" href="dawah.html">الدعوة للإسلام</a></li>
           <li class="nav-item"><a class="nav-link" href="contact.html">تواصل</a></li>
         </ul>
@@ -82,53 +112,53 @@
 
         <div class="col-sm-6 col-lg-3 reveal">
           <div class="book-card">
+            <div class="book-ribbon">PDF</div>
             <div class="book-cover" style="background:linear-gradient(145deg,#1a2035,#0d1525)">
-              <span class="badge-x badge-gold" style="position:absolute;top:10px;left:10px;z-index:1">PDF</span>
               <i class="bi bi-book-half book-cover-icon"></i>
             </div>
             <div class="book-body">
               <div class="book-title">عبادة مريم في المسيحية والظهورات المريمية</div>
               <div class="book-author"><i class="bi bi-person me-1"></i>معاذ عليان & محمود عليان</div>
               <div class="book-meta">أول كتاب مطبوع — 2009</div>
-              <a href="#" class="btn-dl"><i class="bi bi-download"></i>تحميل PDF</a>
+              <a href="#" class="btn-dl"><i class="bi bi-download"></i>تحميل <bdi>PDF</bdi></a>
             </div>
           </div>
         </div>
 
         <div class="col-sm-6 col-lg-3 reveal">
           <div class="book-card">
+            <div class="book-ribbon">PDF</div>
             <div class="book-cover" style="background:linear-gradient(145deg,#201a35,#150d25)">
-              <span class="badge-x badge-gold" style="position:absolute;top:10px;left:10px;z-index:1">PDF</span>
               <i class="bi bi-journal-text book-cover-icon"></i>
             </div>
             <div class="book-body">
               <div class="book-title">من كتب التوراة؟</div>
               <div class="book-author"><i class="bi bi-person me-1"></i>معاذ عليان & محمود عليان</div>
               <div class="book-meta">دراسة نقدية موثقة في نسبة أسفار التوراة</div>
-              <a href="#" class="btn-dl"><i class="bi bi-download"></i>تحميل PDF</a>
+              <a href="#" class="btn-dl"><i class="bi bi-download"></i>تحميل <bdi>PDF</bdi></a>
             </div>
           </div>
         </div>
 
         <div class="col-sm-6 col-lg-3 reveal">
           <div class="book-card">
+            <div class="book-ribbon">PDF</div>
             <div class="book-cover" style="background:linear-gradient(145deg,#1a2820,#0d1e15)">
-              <span class="badge-x badge-gold" style="position:absolute;top:10px;left:10px;z-index:1">PDF</span>
               <i class="bi bi-file-earmark-richtext book-cover-icon"></i>
             </div>
             <div class="book-body">
               <div class="book-title">المجهول في حياة البتول</div>
               <div class="book-author"><i class="bi bi-person me-1"></i>معاذ عليان & محمود عليان</div>
               <div class="book-meta">بحث في حياة السيدة مريم العذراء</div>
-              <a href="#" class="btn-dl"><i class="bi bi-download"></i>تحميل PDF</a>
+              <a href="#" class="btn-dl"><i class="bi bi-download"></i>تحميل <bdi>PDF</bdi></a>
             </div>
           </div>
         </div>
 
         <div class="col-sm-6 col-lg-3 reveal">
           <div class="book-card">
+            <div class="book-ribbon ribbon-teal">إلكتروني</div>
             <div class="book-cover" style="background:linear-gradient(145deg,#281a1a,#1e0d0d)">
-              <span class="badge-x badge-teal" style="position:absolute;top:10px;left:10px;z-index:1">إلكتروني</span>
               <i class="bi bi-laptop book-cover-icon"></i>
             </div>
             <div class="book-body">

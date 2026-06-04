@@ -533,31 +533,93 @@ function submitNewsletter() {
 })();
 
 /* ══════════════════════════════════════
-   PHASE 4 — Auth State & Mock Login
+   PHASE 4 — Auth State & Mock Login & i18n
    ══════════════════════════════════════ */
+
+const translations = {
+  ar: {
+    login: "تسجيل الدخول", logout: "تسجيل الخروج", my_account: "حسابي",
+    home: "الرئيسية", about: "عن معاذ", courses: "الكورسات",
+    videos: "فيديوهات", references: "مراجع", articles: "مقالات",
+    books: "كتب", dawah: "الدعوة للإسلام", contact: "تواصل", support: "ادعم القناة",
+    library: "المكتبة",
+    hero_title: "باحث ومناظر<br><span style='color: var(--gold);'>مقارنة الأديان</span>",
+    hero_desc: "أهلاً بك في الموقع الرسمي للباحث والمناظر معاذ عليان. نقدم لك دراسات موثقة، ردوداً أكاديمية، ومناظرات مباشرة في الحوار الإسلامي المسيحي ونقد الكتاب المقدس."
+  },
+  en: {
+    login: "Login", logout: "Logout", my_account: "My Account",
+    home: "Home", about: "About Moaz", courses: "Courses",
+    videos: "Videos", references: "References", articles: "Articles",
+    books: "Books", dawah: "Dawah", contact: "Contact", support: "Support Channel",
+    library: "Library",
+    hero_title: "Researcher & Debater<br><span style='color: var(--gold);'>Comparative Religion</span>",
+    hero_desc: "Welcome to the official website of researcher and debater Moaz Alian. We provide documented studies, academic responses, and live debates in Islamic-Christian dialogue and biblical criticism."
+  }
+};
+
+function applyLanguage() {
+  const lang = localStorage.getItem('lang') || 'ar';
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  
+  const navLinks = document.querySelectorAll('.nav-link');
+  navLinks.forEach(link => {
+    const href = link.getAttribute('href');
+    if(href === 'index.html' && translations[lang].home) link.textContent = translations[lang].home;
+    if(href === 'about.html' && translations[lang].about) link.textContent = translations[lang].about;
+    if(href === 'courses.html' && translations[lang].courses) link.textContent = translations[lang].courses;
+    if(href === 'videos.html' && translations[lang].videos) link.textContent = translations[lang].videos;
+    if(href === 'references.html' && translations[lang].references) link.textContent = translations[lang].references;
+    if(href === 'articles.html' && translations[lang].articles) link.textContent = translations[lang].articles;
+    if(href === 'books.html' && translations[lang].books) link.textContent = translations[lang].books;
+    if(href === 'dawah.html' && translations[lang].dawah) link.textContent = translations[lang].dawah;
+    if(href === 'contact.html' && translations[lang].contact) link.textContent = translations[lang].contact;
+  });
+  
+  const supportBtn = document.querySelector('a[href="contact.html#support"]');
+  if(supportBtn) supportBtn.innerHTML = `<i class="bi bi-heart-fill"></i>${translations[lang].support}`;
+  
+  const heroTitle = document.querySelector('.hero-title');
+  if(heroTitle) heroTitle.innerHTML = translations[lang].hero_title;
+  
+  const heroDesc = document.querySelector('.hero-desc');
+  if(heroDesc) heroDesc.innerHTML = translations[lang].hero_desc;
+  
+  // Adjust font family if English
+  document.body.style.fontFamily = lang === 'en' ? "'Inter', 'Segoe UI', sans-serif" : "'Cairo', sans-serif";
+}
+
 function updateAuthUI() {
   const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
   const authLinksContainers = document.querySelectorAll('#auth-links-container');
+  const lang = localStorage.getItem('lang') || 'ar';
+  
+  const txtLogin = lang === 'en' ? 'Login' : 'تسجيل الدخول';
+  const txtAccount = lang === 'en' ? 'My Account' : 'حسابي';
+  const txtLogout = lang === 'en' ? 'Logout' : 'تسجيل الخروج';
+  const txtName = lang === 'en' ? 'Mohamed Ahmed' : 'محمد أحمد';
+  const iconDir = lang === 'en' ? 'right' : 'left';
+  const alignDir = lang === 'en' ? 'left' : 'right';
   
   authLinksContainers.forEach(container => {
     if (isLoggedIn) {
       container.innerHTML = `
         <div class="dropdown">
           <a class="text-decoration-none dropdown-toggle d-flex align-items-center gap-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: var(--text);">
-            <img src="https://ui-avatars.com/api/?name=محمد+أحمد&background=0D8ABC&color=fff" alt="User" style="width: 32px; height: 32px; border-radius: 50%;">
-            <span class="fw-bold" style="font-size: 0.9rem;">محمد أحمد</span>
+            <img src="https://ui-avatars.com/api/?name=${encodeURIComponent(txtName)}&background=0D8ABC&color=fff" alt="User" style="width: 32px; height: 32px; border-radius: 50%;">
+            <span class="fw-bold" style="font-size: 0.9rem;">${txtName}</span>
           </a>
-          <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2" style="background: var(--card); border: 1px solid var(--border) !important; border-radius: 12px; text-align: right;">
-            <li><a class="dropdown-item py-2" href="profile.html" style="color: var(--text); font-size: 0.9rem;"><i class="bi bi-person-circle me-2"></i> حسابي</a></li>
+          <ul class="dropdown-menu shadow-sm border-0 mt-2" style="background: var(--card); border: 1px solid var(--border) !important; border-radius: 12px; text-align: ${alignDir};">
+            <li><a class="dropdown-item py-2" href="profile.html" style="color: var(--text); font-size: 0.9rem;"><i class="bi bi-person-circle mx-1"></i> ${txtAccount}</a></li>
             <li><hr class="dropdown-divider" style="border-color: var(--border);"></li>
-            <li><a class="dropdown-item py-2 text-danger" href="#" onclick="logout(event)" style="font-size: 0.9rem;"><i class="bi bi-box-arrow-right me-2"></i> تسجيل الخروج</a></li>
+            <li><a class="dropdown-item py-2 text-danger" href="#" onclick="logout(event)" style="font-size: 0.9rem;"><i class="bi bi-box-arrow-right mx-1"></i> ${txtLogout}</a></li>
           </ul>
         </div>
       `;
     } else {
       container.innerHTML = `
-        <a class="btn btn-sm d-flex align-items-center gap-2 px-3 py-2" href="login.html" style="background: var(--teal); color: #fff; font-weight: 700; border-radius: 30px;">
-          تسجيل الدخول <i class="bi bi-box-arrow-in-left"></i>
+        <a class="btn btn-login d-flex align-items-center gap-2" href="login.html">
+          <i class="bi bi-person-fill"></i> ${txtLogin}
         </a>
       `;
     }
@@ -573,27 +635,49 @@ function logout(e) {
   }
 }
 
-document.addEventListener('DOMContentLoaded', updateAuthUI);
+document.addEventListener('DOMContentLoaded', () => {
+  // Insert lang toggle dynamically
+  const themeToggle = document.getElementById('theme-toggle');
+  if (themeToggle && !document.getElementById('lang-toggle')) {
+    const langBtn = document.createElement('button');
+    langBtn.id = 'lang-toggle';
+    langBtn.className = 'theme-toggle ms-2 fw-bold text-gold';
+    langBtn.style.fontSize = '0.8rem';
+    langBtn.innerHTML = localStorage.getItem('lang') === 'en' ? 'AR' : 'EN';
+    themeToggle.parentNode.insertBefore(langBtn, themeToggle.nextSibling);
+    
+    langBtn.addEventListener('click', () => {
+      const currentLang = localStorage.getItem('lang') || 'ar';
+      localStorage.setItem('lang', currentLang === 'ar' ? 'en' : 'ar');
+      window.location.reload();
+    });
+  }
+  
+  applyLanguage();
+  updateAuthUI();
+});
 
 function mockLogin(e) {
   e.preventDefault();
   const btn = document.getElementById('login-btn');
-  const msg = document.getElementById('login-msg');
+  const lang = localStorage.getItem('lang') || 'ar';
+  
   if(btn) {
     btn.disabled = true;
-    btn.innerHTML = '<i class="bi bi-hourglass-split"></i> جاري الدخول...';
+    btn.innerHTML = lang === 'en' ? '<i class="bi bi-hourglass-split"></i> Logging in...' : '<i class="bi bi-hourglass-split"></i> جاري الدخول...';
   }
   
   setTimeout(() => {
     localStorage.setItem('isLoggedIn', 'true');
-    if(msg) {
-      msg.textContent = 'تم تسجيل الدخول بنجاح! جاري التوجيه...';
-      msg.style.display = 'block';
-      msg.className = 'success mt-3';
-    }
-    setTimeout(() => {
+    Swal.fire({
+      title: lang === 'en' ? 'Success!' : 'نجاح',
+      text: lang === 'en' ? 'Logged in successfully! Redirecting...' : 'تم تسجيل الدخول بنجاح! جاري التوجيه...',
+      icon: 'success',
+      showConfirmButton: false,
+      timer: 1500
+    }).then(() => {
       window.location.href = 'profile.html';
-    }, 1000);
+    });
   }, 1000);
 }
 
