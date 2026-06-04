@@ -531,3 +531,69 @@ function submitNewsletter() {
   }
   setTimeout(type, 1200);
 })();
+
+/* ══════════════════════════════════════
+   PHASE 4 — Auth State & Mock Login
+   ══════════════════════════════════════ */
+function updateAuthUI() {
+  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+  const authLinksContainers = document.querySelectorAll('#auth-links-container');
+  
+  authLinksContainers.forEach(container => {
+    if (isLoggedIn) {
+      container.innerHTML = `
+        <div class="dropdown">
+          <a class="text-decoration-none dropdown-toggle d-flex align-items-center gap-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: var(--text);">
+            <img src="https://ui-avatars.com/api/?name=محمد+أحمد&background=0D8ABC&color=fff" alt="User" style="width: 32px; height: 32px; border-radius: 50%;">
+            <span class="fw-bold" style="font-size: 0.9rem;">محمد أحمد</span>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2" style="background: var(--card); border: 1px solid var(--border) !important; border-radius: 12px; text-align: right;">
+            <li><a class="dropdown-item py-2" href="profile.html" style="color: var(--text); font-size: 0.9rem;"><i class="bi bi-person-circle me-2"></i> حسابي</a></li>
+            <li><hr class="dropdown-divider" style="border-color: var(--border);"></li>
+            <li><a class="dropdown-item py-2 text-danger" href="#" onclick="logout(event)" style="font-size: 0.9rem;"><i class="bi bi-box-arrow-right me-2"></i> تسجيل الخروج</a></li>
+          </ul>
+        </div>
+      `;
+    } else {
+      container.innerHTML = `
+        <a class="btn btn-sm d-flex align-items-center gap-2 px-3 py-2" href="login.html" style="background: var(--teal); color: #fff; font-weight: 700; border-radius: 30px;">
+          تسجيل الدخول <i class="bi bi-box-arrow-in-left"></i>
+        </a>
+      `;
+    }
+  });
+}
+
+function logout(e) {
+  if (e) e.preventDefault();
+  localStorage.removeItem('isLoggedIn');
+  updateAuthUI();
+  if (window.location.pathname.includes('profile.html')) {
+    window.location.href = 'index.html';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', updateAuthUI);
+
+function mockLogin(e) {
+  e.preventDefault();
+  const btn = document.getElementById('login-btn');
+  const msg = document.getElementById('login-msg');
+  if(btn) {
+    btn.disabled = true;
+    btn.innerHTML = '<i class="bi bi-hourglass-split"></i> جاري الدخول...';
+  }
+  
+  setTimeout(() => {
+    localStorage.setItem('isLoggedIn', 'true');
+    if(msg) {
+      msg.textContent = 'تم تسجيل الدخول بنجاح! جاري التوجيه...';
+      msg.style.display = 'block';
+      msg.className = 'success mt-3';
+    }
+    setTimeout(() => {
+      window.location.href = 'profile.html';
+    }, 1000);
+  }, 1000);
+}
+

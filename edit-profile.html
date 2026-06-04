@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="تعديل الحساب - موقع معاذ عليان الرسمي" />
+  <meta name="author" content="معاذ عليان" />
+
+  <title>تعديل الحساب | معاذ عليان</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script>
+    (function () {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+</head>
+
+<body>
+  <header class="fixed-top" style="z-index: 1060; width: 100%;">
+    <nav class="navbar navbar-expand-lg" id="nav">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          معاذ عليان
+          <small>باحث في مقارنة الأديان</small>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nm" aria-label="تبديل القائمة">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="nm">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-1">
+            <li class="nav-item"><a class="nav-link" href="index.html">الرئيسية</a></li>
+            <li class="nav-item"><a class="nav-link" href="about.html">عن معاذ</a></li>
+            <li class="nav-item"><a class="nav-link" href="videos.html">فيديوهات</a></li>
+            <li class="nav-item"><a class="nav-link" href="references.html">مراجع</a></li>
+            <li class="nav-item"><a class="nav-link" href="articles.html">مقالات</a></li>
+            <li class="nav-item"><a class="nav-link" href="books.html">كتب</a></li>
+            <li class="nav-item"><a class="nav-link" href="dawah.html">الدعوة للإسلام</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact.html">تواصل</a></li>
+          </ul>
+          <div id="auth-links-container" class="ms-lg-auto me-lg-3 my-2 my-lg-0"></div>
+          <button id="theme-toggle" class="theme-toggle ms-2" aria-label="تبديل المظهر">
+            <i class="bi bi-moon-fill dark-icon"></i>
+            <i class="bi bi-sun-fill light-icon"></i>
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main style="margin-top: 100px; min-height: 80vh; padding-bottom: 4rem;">
+    <section class="container py-4">
+      
+      <!-- Breadcrumb -->
+      <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb" style="font-size: 0.85rem;">
+          <li class="breadcrumb-item"><a href="index.html" style="color: var(--gold); text-decoration: none;">الرئيسية</a></li>
+          <li class="breadcrumb-item"><a href="profile.html" style="color: var(--gold); text-decoration: none;">حسابي</a></li>
+          <li class="breadcrumb-item active" aria-current="page" style="color: var(--text2);">تعديل البيانات</li>
+        </ol>
+      </nav>
+
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="card-x p-4 shadow-sm" style="border: 1px solid var(--border); border-radius: 16px; background: var(--card);">
+            
+            <h2 style="font-weight: 800; color: var(--text); margin-bottom: 1.5rem; font-size: 1.4rem;">
+              <i class="bi bi-gear-fill me-2 text-gold"></i>تعديل الحساب الشخصي
+            </h2>
+            <hr style="border-color: var(--border); margin-bottom: 2rem;">
+
+            <form onsubmit="mockUpdateProfile(event)">
+              <!-- Profile Picture Edit -->
+              <div class="d-flex align-items-center gap-4 mb-4">
+                <div style="position: relative;">
+                  <img src="https://ui-avatars.com/api/?name=محمد+أحمد&background=0D8ABC&color=fff&size=100" alt="User" style="width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--teal);">
+                  <button type="button" class="btn btn-sm" style="position: absolute; bottom: 0; right: 0; background: var(--gold); color: #fff; border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border: 2px solid var(--card);"><i class="bi bi-camera-fill"></i></button>
+                </div>
+                <div>
+                  <h4 style="font-size: 1.1rem; color: var(--text); font-weight: 700; margin-bottom: 0.3rem;">تغيير الصورة الشخصية</h4>
+                  <p style="font-size: 0.8rem; color: var(--text2); margin-bottom: 0;">يُفضل استخدام صورة بصيغة JPG أو PNG بحجم لا يتجاوز 2MB.</p>
+                </div>
+              </div>
+
+              <!-- Details -->
+              <div class="row g-4">
+                <div class="col-md-6">
+                  <label class="form-label" style="color: var(--text); font-weight: 600; font-size: 0.9rem;">الاسم الكامل</label>
+                  <input type="text" class="form-control" value="محمد أحمد" style="background: var(--bg); color: var(--text); border: 1px solid var(--border);" />
+                </div>
+                
+                <div class="col-md-6">
+                  <label class="form-label" style="color: var(--text); font-weight: 600; font-size: 0.9rem;">البريد الإلكتروني</label>
+                  <input type="email" class="form-control" value="mohamed@example.com" style="background: var(--bg); color: var(--text); border: 1px solid var(--border);" />
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label" style="color: var(--text); font-weight: 600; font-size: 0.9rem;">الديانة</label>
+                  <select class="form-select" style="background: var(--bg); color: var(--text); border: 1px solid var(--border);">
+                    <option value="muslim" selected>مسلم</option>
+                    <option value="christian">مسيحي</option>
+                    <option value="jewish">يهودي</option>
+                    <option value="other">أخرى / غير ذلك</option>
+                  </select>
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label" style="color: var(--text); font-weight: 600; font-size: 0.9rem;">كلمة المرور الجديدة</label>
+                  <input type="password" class="form-control" placeholder="أدخل كلمة المرور لتغييرها" style="background: var(--bg); color: var(--text); border: 1px solid var(--border);" />
+                  <small style="color: var(--text3); font-size: 0.75rem;">اترك الحقل فارغاً إذا لم تكن تريد تغيير كلمة المرور.</small>
+                </div>
+              </div>
+
+              <hr style="border-color: var(--border); margin: 2rem 0;">
+
+              <div class="d-flex justify-content-end gap-2">
+                <a href="profile.html" class="btn" style="background: transparent; border: 1px solid var(--border); color: var(--text);">إلغاء</a>
+                <button type="submit" id="save-btn" class="btn btn-gold px-4 fw-bold"><i class="bi bi-save me-1"></i> حفظ التعديلات</button>
+              </div>
+              
+              <div id="save-msg" style="display: none; padding: 10px; border-radius: 8px; text-align: center; font-size: 0.85rem; margin-top: 15px;"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="footer-logo">معاذ عليان</div>
+          <div class="footer-desc">إعلامي وباحث ومناظر مصري متخصص في مقارنة الأديان والحوار الإسلامي المسيحي.</div>
+        </div>
+      </div>
+      <hr class="footer-divider" />
+      <div class="footer-bottom">
+        جميع الحقوق محفوظة © 2026 معاذ عليان — موقع رسمي لمحتوى مقارنة الأديان
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (localStorage.getItem('isLoggedIn') !== 'true') {
+        window.location.href = 'login.html';
+      }
+    });
+
+    function mockUpdateProfile(e) {
+      e.preventDefault();
+      const btn = document.getElementById('save-btn');
+      const msg = document.getElementById('save-msg');
+      if(btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="bi bi-hourglass-split"></i> جاري الحفظ...';
+      }
+      
+      setTimeout(() => {
+        if(msg) {
+          msg.textContent = 'تم حفظ التعديلات بنجاح!';
+          msg.style.display = 'block';
+          msg.className = 'success mt-3';
+        }
+        setTimeout(() => {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="bi bi-save me-1"></i> حفظ التعديلات';
+          msg.style.display = 'none';
+        }, 2000);
+      }, 800);
+    }
+  </script>
+</body>
+</html>
