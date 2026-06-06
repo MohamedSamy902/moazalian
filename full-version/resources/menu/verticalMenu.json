@@ -1,0 +1,73 @@
+{
+  "menu": [
+    {
+      "url": "admin",
+      "name": "Dashboard",
+      "icon": "menu-icon icon-base ti tabler-smart-home",
+      "slug": "admin.home"
+    },
+    {
+      "menuHeader": "Content & Interfaces"
+    },
+    {
+      "url": "admin/sections",
+      "name": "Interface Settings",
+      "icon": "menu-icon icon-base ti tabler-layout",
+      "slug": "admin.sections.index"
+    },
+    {
+      "url": "admin/courses",
+      "name": "Courses",
+      "icon": "menu-icon icon-base ti tabler-book",
+      "slug": "admin.courses.index"
+    },
+    {
+      "url": "admin/videos",
+      "name": "Videos",
+      "icon": "menu-icon icon-base ti tabler-brand-youtube",
+      "slug": "admin.videos.index"
+    },
+    {
+      "url": "admin/quick-responses",
+      "name": "Quick Responses",
+      "icon": "menu-icon icon-base ti tabler-message-circle",
+      "slug": "admin.quick-responses.index"
+    },
+    {
+      "url": "admin/articles",
+      "name": "Articles",
+      "icon": "menu-icon icon-base ti tabler-news",
+      "slug": "admin.articles.index"
+    },
+    {
+      "menuHeader": "Users & System"
+    },
+    {
+      "url": "admin/users",
+      "name": "Subscribers",
+      "icon": "menu-icon icon-base ti tabler-users",
+      "slug": "admin.users.index",
+      "permission": "users.view"
+    },
+    {
+      "url": "admin/settings",
+      "name": "System Settings",
+      "icon": "menu-icon icon-base ti tabler-settings",
+      "slug": "admin.settings.index"
+    },
+    {
+      "url": "admin/admins",
+      "name": "Administrators",
+      "icon": "menu-icon icon-base ti tabler-user-shield",
+      "slug": "admin.admins.index",
+      "permission": "admins.view"
+    },
+    {
+      "url": "admin/roles",
+      "name": "Roles & Permissions",
+      "icon": "menu-icon icon-base ti tabler-shield-lock",
+      "slug": "admin.roles.index",
+      "permission": "roles.view"
+    }
+  ]
+}

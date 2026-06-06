@@ -1,0 +1,55 @@
+{
+  "menu": [
+    {
+      "url": "admin",
+      "name": "الرئيسية",
+      "icon": "menu-icon icon-base ti tabler-smart-home",
+      "slug": "admin.home"
+    },
+    {
+      "url": "admin/sections",
+      "name": "إعدادات الواجهة",
+      "icon": "menu-icon icon-base ti tabler-layout",
+      "slug": "admin.sections.index"
+    },
+    {
+      "url": "admin/courses",
+      "name": "الدورات",
+      "icon": "menu-icon icon-base ti tabler-book",
+      "slug": "admin.courses.index"
+    },
+    {
+      "url": "admin/articles",
+      "name": "المقالات",
+      "icon": "menu-icon icon-base ti tabler-news",
+      "slug": "admin.articles.index"
+    },
+    {
+      "url": "admin/users",
+      "name": "المشتركون",
+      "icon": "menu-icon icon-base ti tabler-users",
+      "slug": "admin.users.index",
+      "permission": "users.view"
+    },
+    {
+      "url": "admin/settings",
+      "name": "إعدادات النظام",
+      "icon": "menu-icon icon-base ti tabler-settings",
+      "slug": "admin.settings.index"
+    },
+    {
+      "url": "admin/admins",
+      "name": "المشرفون",
+      "icon": "menu-icon icon-base ti tabler-user-shield",
+      "slug": "admin.admins.index",
+      "permission": "admins.view"
+    },
+    {
+      "url": "admin/roles",
+      "name": "الصلاحيات",
+      "icon": "menu-icon icon-base ti tabler-shield-lock",
+      "slug": "admin.roles.index",
+      "permission": "roles.view"
+    }
+  ]
+}
