@@ -4,98 +4,111 @@ namespace App\Services\Dashboard;
 
 use App\Models\QuickResponse;
 use App\Repositories\Interfaces\QuickResponseRepositoryInterface;
+use App\Services\Core\ImageService;
+use Illuminate\Support\Facades\DB;
 use MohamedSamy902\AdvancedFileUpload\Facades\FileUpload;
 
 class QuickResponseService
 {
     public function __construct(
-        private readonly QuickResponseRepositoryInterface $responseRepo
+        private readonly QuickResponseRepositoryInterface $responseRepo,
+        private readonly ImageService $imageService,
     ) {}
 
-    public function getResponses()
+    /**
+     * Get paginated quick responses with optional search/type filters.
+     */
+    public function getResponses(array $filters = [])
     {
-        return $this->responseRepo->getModel()->latest()->paginate(10);
-    }
+        $query = $this->responseRepo->getModel()->latest();
 
-    public function createResponse(array $data)
-    {
-        $data['is_published'] = filter_var($data['is_published'] ?? true, FILTER_VALIDATE_BOOLEAN);
-
-        if ($data['type'] === 'image' && isset($data['image'])) {
-            $result = FileUpload::upload($data['image'], ['folder_name' => 'quick-responses']);
-            $data['attachment'] = $result->path;
-        } elseif ($data['type'] === 'video') {
-            $data['attachment'] = $data['youtube_url'] ?? null;
+        if (!empty($filters['search'])) {
+            $search = mb_substr(strip_tags($filters['search']), 0, 100);
+            $query->where(function ($q) use ($search) {
+                $q->where('title->ar', 'like', "%{$search}%")
+                  ->orWhere('title->en', 'like', "%{$search}%");
+            });
         }
 
-        if ($data['type'] === 'text') {
-            $data['content'] = [
-                'ar' => $data['content_text']['ar'] ?? '',
-                'en' => $data['content_text']['en'] ?? '',
-            ];
+        if (!empty($filters['type'])) {
+            $query->where('type', $filters['type']);
         }
 
-        unset($data['image'], $data['youtube_url'], $data['content_text']);
-
-        return $this->responseRepo->create($data);
+        return $query->paginate(10)->withQueryString();
     }
 
-    public function updateResponse(QuickResponse $response, array $data)
+    public function createResponse(array $data): QuickResponse
     {
-        $data['is_published'] = filter_var($data['is_published'] ?? true, FILTER_VALIDATE_BOOLEAN);
+        return DB::transaction(function () use ($data) {
+            $data['is_published'] = filter_var($data['is_published'] ?? true, FILTER_VALIDATE_BOOLEAN);
 
-        if ($data['type'] === 'image') {
-            if (isset($data['image'])) {
-                if ($response->type === 'image' && $response->attachment) {
-                    try {
-                        FileUpload::delete($response->attachment);
-                    } catch (\Exception $e) {}
-                }
-                $result = FileUpload::upload($data['image'], ['folder_name' => 'quick-responses']);
+            if ($data['type'] === 'image' && isset($data['image'])) {
+                $this->imageService->compress($data['image']);
+                $result           = FileUpload::upload($data['image'], ['folder_name' => 'quick-responses']);
                 $data['attachment'] = $result->path;
-            } else {
-                $data['attachment'] = $response->attachment;
+            } elseif ($data['type'] === 'video') {
+                $data['attachment'] = $data['youtube_url'] ?? null;
             }
-        } elseif ($data['type'] === 'video') {
-            $data['attachment'] = $data['youtube_url'] ?? null;
-            // Cleanup old image if changed type
-            if ($response->type === 'image' && $response->attachment) {
-                try {
-                    FileUpload::delete($response->attachment);
-                } catch (\Exception $e) {}
+
+            if ($data['type'] === 'text') {
+                $data['content'] = [
+                    'ar' => $data['content_text']['ar'] ?? '',
+                    'en' => $data['content_text']['en'] ?? '',
+                ];
             }
-        } else {
-            $data['attachment'] = null;
-            if ($response->type === 'image' && $response->attachment) {
-                try {
-                    FileUpload::delete($response->attachment);
-                } catch (\Exception $e) {}
-            }
-        }
 
-        if ($data['type'] === 'text') {
-            $data['content'] = [
-                'ar' => $data['content_text']['ar'] ?? '',
-                'en' => $data['content_text']['en'] ?? '',
-            ];
-        } else {
-            $data['content'] = null;
-        }
+            unset($data['image'], $data['youtube_url'], $data['content_text']);
 
-        unset($data['image'], $data['youtube_url'], $data['content_text']);
-
-        $this->responseRepo->update($response, $data);
-        return $response->refresh();
+            return $this->responseRepo->create($data);
+        });
     }
 
-    public function deleteResponse(QuickResponse $response)
+    public function updateResponse(QuickResponse $response, array $data): QuickResponse
     {
-        if ($response->type === 'image' && $response->attachment) {
-            try {
-                FileUpload::delete($response->attachment);
-            } catch (\Exception $e) {}
-        }
-        
-        return $this->responseRepo->delete($response);
+        return DB::transaction(function () use ($response, $data) {
+            $data['is_published'] = filter_var($data['is_published'] ?? true, FILTER_VALIDATE_BOOLEAN);
+
+            if ($data['type'] === 'image') {
+                if (isset($data['image'])) {
+                    if ($response->type === 'image' && $response->attachment) {
+                        try { FileUpload::delete($response->attachment); } catch (\Exception) {}
+                    }
+                    $this->imageService->compress($data['image']);
+                    $result           = FileUpload::upload($data['image'], ['folder_name' => 'quick-responses']);
+                    $data['attachment'] = $result->path;
+                } else {
+                    $data['attachment'] = $response->attachment;
+                }
+            } elseif ($data['type'] === 'video') {
+                $data['attachment'] = $data['youtube_url'] ?? null;
+                if ($response->type === 'image' && $response->attachment) {
+                    try { FileUpload::delete($response->attachment); } catch (\Exception) {}
+                }
+            } else {
+                $data['attachment'] = null;
+                if ($response->type === 'image' && $response->attachment) {
+                    try { FileUpload::delete($response->attachment); } catch (\Exception) {}
+                }
+            }
+
+            $data['content'] = $data['type'] === 'text'
+                ? ['ar' => $data['content_text']['ar'] ?? '', 'en' => $data['content_text']['en'] ?? '']
+                : null;
+
+            unset($data['image'], $data['youtube_url'], $data['content_text']);
+
+            $this->responseRepo->update($response, $data);
+            return $response->refresh();
+        });
+    }
+
+    public function deleteResponse(QuickResponse $response): bool
+    {
+        return DB::transaction(function () use ($response) {
+            if ($response->type === 'image' && $response->attachment) {
+                try { FileUpload::delete($response->attachment); } catch (\Exception) {}
+            }
+            return $this->responseRepo->delete($response);
+        });
     }
 }

@@ -36,5 +36,53 @@ return Application::configure(basePath: dirname(__DIR__))
         );
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+        // ─── 404: Model Not Found ───────────────────────────────────────────
+        $exceptions->render(function (\Illuminate\Database\Eloquent\ModelNotFoundException $e, \Illuminate\Http\Request $request) {
+            if ($request->expectsJson()) {
+                return response()->json(['success' => false, 'message' => 'العنصر المطلوب غير موجود.'], 404);
+            }
+            return response()->view('errors.404', [], 404);
+        });
+
+        // ─── 403: Unauthorized / Permission Denied ──────────────────────────
+        $exceptions->render(function (\Illuminate\Auth\Access\AuthorizationException $e, \Illuminate\Http\Request $request) {
+            if ($request->expectsJson()) {
+                return response()->json(['success' => false, 'message' => 'غير مصرح لك بتنفيذ هذه العملية.'], 403);
+            }
+            return response()->view('errors.403', ['message' => $e->getMessage()], 403);
+        });
+
+        // ─── 422: Validation Errors (for AJAX requests) ─────────────────────
+        $exceptions->render(function (\Illuminate\Validation\ValidationException $e, \Illuminate\Http\Request $request) {
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'البيانات المدخلة غير صحيحة.',
+                    'errors'  => $e->errors(),
+                ], 422);
+            }
+        });
+
+        // ─── 500: Generic Exceptions ─────────────────────────────────────────
+        $exceptions->render(function (\Throwable $e, \Illuminate\Http\Request $request) {
+            // Log the real error with full context
+            \Illuminate\Support\Facades\Log::error('Unhandled Exception', [
+                'message' => $e->getMessage(),
+                'file'    => $e->getFile(),
+                'line'    => $e->getLine(),
+                'url'     => $request->fullUrl(),
+                'method'  => $request->method(),
+                'user_id' => auth('admin')->id() ?? auth()->id(),
+            ]);
+
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => app()->isProduction()
+                        ? 'حدث خطأ في الخادم. يرجى المحاولة مرة أخرى لاحقاً.'
+                        : $e->getMessage(),
+                ], 500);
+            }
+        });
     })->create();
+

@@ -2,47 +2,44 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
-
-use App\Repositories\Interfaces\CourseRepositoryInterface;
-use App\Repositories\Implementations\CourseRepository;
-
-use App\Repositories\Interfaces\ArticleRepositoryInterface;
 use App\Repositories\Implementations\ArticleRepository;
-
-use App\Repositories\Interfaces\VideoRepositoryInterface;
-use App\Repositories\Implementations\VideoRepository;
-
-use App\Repositories\Interfaces\BookRepositoryInterface;
 use App\Repositories\Implementations\BookRepository;
-
-use App\Repositories\Interfaces\DebateRepositoryInterface;
+use App\Repositories\Implementations\CourseRepository;
 use App\Repositories\Implementations\DebateRepository;
-
-use App\Repositories\Interfaces\QuickReplyRepositoryInterface;
 use App\Repositories\Implementations\QuickReplyRepository;
+use App\Repositories\Implementations\QuickResponseRepository;
+use App\Repositories\Implementations\VideoRepository;
+use App\Repositories\Interfaces\ArticleRepositoryInterface;
+use App\Repositories\Interfaces\BookRepositoryInterface;
+use App\Repositories\Interfaces\CourseRepositoryInterface;
+use App\Repositories\Interfaces\DebateRepositoryInterface;
+use App\Repositories\Interfaces\QuickReplyRepositoryInterface;
+use App\Repositories\Interfaces\QuickResponseRepositoryInterface;
+use App\Repositories\Interfaces\VideoRepositoryInterface;
+use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
     /**
-     * Register services.
+     * All Interface → Implementation bindings.
+     * To register a new repository, add one entry here — no other file changes needed.
      */
+    private array $repositories = [
+        CourseRepositoryInterface::class        => CourseRepository::class,
+        ArticleRepositoryInterface::class       => ArticleRepository::class,
+        VideoRepositoryInterface::class         => VideoRepository::class,
+        BookRepositoryInterface::class          => BookRepository::class,
+        DebateRepositoryInterface::class        => DebateRepository::class,
+        QuickReplyRepositoryInterface::class    => QuickReplyRepository::class,
+        QuickResponseRepositoryInterface::class => QuickResponseRepository::class,
+    ];
+
     public function register(): void
     {
-        $this->app->bind(CourseRepositoryInterface::class, CourseRepository::class);
-        $this->app->bind(ArticleRepositoryInterface::class, ArticleRepository::class);
-        $this->app->bind(VideoRepositoryInterface::class, VideoRepository::class);
-        $this->app->bind(BookRepositoryInterface::class, BookRepository::class);
-        $this->app->bind(DebateRepositoryInterface::class, DebateRepository::class);
-        $this->app->bind(QuickReplyRepositoryInterface::class, QuickReplyRepository::class);
-        $this->app->bind(\App\Repositories\Interfaces\QuickResponseRepositoryInterface::class, \App\Repositories\Implementations\QuickResponseRepository::class);
+        foreach ($this->repositories as $interface => $implementation) {
+            $this->app->bind($interface, $implementation);
+        }
     }
 
-    /**
-     * Bootstrap services.
-     */
-    public function boot(): void
-    {
-        //
-    }
+    public function boot(): void {}
 }

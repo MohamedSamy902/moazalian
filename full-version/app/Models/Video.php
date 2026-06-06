@@ -1,14 +1,16 @@
 <?php
+
 namespace App\Models;
 
 use App\Enums\VideoCategory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Translatable\HasTranslations;
 
 class Video extends Model
 {
-    use HasTranslations;
+    use HasTranslations, SoftDeletes;
 
     protected $guarded = [];
     public $translatable = ['title', 'description'];

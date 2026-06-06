@@ -3,29 +3,27 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Dashboard\Users\UserRequest;
 use App\Models\User;
 use App\Services\Dashboard\UserService;
+use App\Traits\ApiResponse;
+use App\Traits\ChecksPermissions;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    use ChecksPermissions, ApiResponse;
+
     public function __construct(
         private readonly UserService $userService
     ) {}
-
-    private function checkPermission($permission)
-    {
-        /** @var \App\Models\Admin $user */
-        $user = auth('admin')->user();
-        abort_if(!$user->hasRole('Super Admin') && !$user->can($permission), 403, 'غير مصرح لك');
-    }
 
     public function index(Request $request)
     {
         $this->checkPermission('users.view');
         $filters = $request->only(['search', 'status']);
-        $users = $this->userService->getUsers($filters);
-        $stats = $this->userService->getUsersStats();
+        $users   = $this->userService->getUsers($filters);
+        $stats   = $this->userService->getUsersStats();
         return view('dashboard.users.index', compact('users', 'stats'));
     }
 
@@ -36,25 +34,13 @@ class UserController extends Controller
         return view('dashboard.users.form-modal', compact('user'));
     }
 
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
         $this->checkPermission('users.create');
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:6',
-            'phone' => 'nullable|string|max:20',
-            'religion' => 'nullable|string|max:100',
-            'status' => 'required|in:active,inactive,blocked',
-            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
-        ]);
 
-        $this->userService->createUser($request->all());
+        $this->userService->createUser($request->validated());
 
-        return response()->json([
-            'success' => true,
-            'message' => 'تم إضافة المشترك بنجاح'
-        ]);
+        return $this->successResponse('تم إضافة المشترك بنجاح');
     }
 
     public function edit(User $user)
@@ -63,42 +49,24 @@ class UserController extends Controller
         return view('dashboard.users.form-modal', compact('user'));
     }
 
-    public function update(Request $request, User $user)
+    public function update(UserRequest $request, User $user)
     {
         $this->checkPermission('users.edit');
 
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $user->id,
-            'password' => 'nullable|string|min:6',
-            'phone' => 'nullable|string|max:20',
-            'religion' => 'nullable|string|max:100',
-            'status' => 'required|in:active,inactive,blocked',
-            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
-        ]);
+        $this->userService->updateUser($user, $request->validated());
 
-        $this->userService->updateUser($user, $request->all());
-
-        return response()->json([
-            'success' => true,
-            'message' => 'تم تحديث بيانات المشترك بنجاح'
-        ]);
+        return $this->successResponse('تم تحديث بيانات المشترك بنجاح');
     }
 
     public function destroy(User $user)
     {
         $this->checkPermission('users.delete');
+
         try {
             $this->userService->deleteUser($user);
-            return response()->json([
-                'success' => true,
-                'message' => 'تم حذف المشترك بنجاح'
-            ]);
+            return $this->successResponse('تم حذف المشترك بنجاح');
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => $e->getMessage()
-            ], 400);
+            return $this->errorResponse($e->getMessage());
         }
     }
 }

@@ -1,35 +1,71 @@
 <?php
+
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Dashboard\Courses\CourseRequest;
+use App\Models\Course;
 use App\Services\Dashboard\DashboardCourseService;
+use App\Traits\ApiResponse;
+use App\Traits\ChecksPermissions;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
 {
+    use ChecksPermissions, ApiResponse;
+
     public function __construct(
         private readonly DashboardCourseService $courseService
     ) {}
 
     public function index(Request $request)
     {
-        // Pipeline implementation for advanced filtering will be placed in the Service
-        // Returning empty view for architecture verification
-        return view('dashboard.courses.index');
+        $this->checkPermission('courses.view');
+        $filters = $request->only(['search', 'status']);
+        $courses = $this->courseService->getCourses($filters);
+        return view('dashboard.courses.index', compact('courses'));
     }
 
-    public function store(Request $request)
+    public function create()
     {
-        // Data is strictly validated by FormRequest before reaching here.
-        // For demonstration of architecture, using inline validation here:
-        $data = $request->validate([
-            'title' => 'required|array', // Because of Spatie Translatable
-            'title.ar' => 'required|string',
-            'title.en' => 'nullable|string',
-        ]);
+        $this->checkPermission('courses.create');
+        $course = null;
+        return view('dashboard.courses.form-modal', compact('course'));
+    }
 
-        $this->courseService->storeCourse($data);
+    public function store(CourseRequest $request)
+    {
+        $this->checkPermission('courses.create');
 
-        return redirect()->route('admin.courses.index')->with('success', 'تم إنشاء الكورس بنجاح');
+        $this->courseService->storeCourse($request->validated());
+
+        return $this->successResponse('تم إنشاء الكورس بنجاح');
+    }
+
+    public function edit(Course $course)
+    {
+        $this->checkPermission('courses.edit');
+        return view('dashboard.courses.form-modal', compact('course'));
+    }
+
+    public function update(CourseRequest $request, Course $course)
+    {
+        $this->checkPermission('courses.edit');
+
+        $this->courseService->updateCourse($course, $request->validated());
+
+        return $this->successResponse('تم تحديث الكورس بنجاح');
+    }
+
+    public function destroy(Course $course)
+    {
+        $this->checkPermission('courses.delete');
+
+        try {
+            $this->courseService->deleteCourse($course);
+            return $this->successResponse('تم حذف الكورس بنجاح');
+        } catch (\Exception $e) {
+            return $this->errorResponse($e->getMessage());
+        }
     }
 }

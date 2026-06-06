@@ -1,13 +1,15 @@
 <?php
+
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Translatable\HasTranslations;
 
 class Course extends Model
 {
-    use HasTranslations;
+    use HasTranslations, SoftDeletes;
 
     protected $guarded = [];
     public $translatable = ['title', 'description'];
