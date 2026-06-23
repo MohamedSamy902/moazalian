@@ -7,7 +7,7 @@
 /storage/pail
 /vendor
 
-# .env
+.env
 *.md
 .env.backup
 .env.production
@@ -28,6 +28,7 @@ yarn-error.log
 /.zed
 
 !/public/assets
+!/public/build
 !/public/assets/*
 /resources/assets/vendor/fonts/flags/**
 /resources/assets/vendor/fonts/fontawesome/**
