@@ -8,6 +8,7 @@
 /vendor
 
 # .env
+*.md
 .env.backup
 .env.production
 .phpactor.json
