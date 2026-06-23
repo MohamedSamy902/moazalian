@@ -40,6 +40,12 @@
       "slug": "admin.articles.index"
     },
     {
+      "url": "admin/books",
+      "name": "Books",
+      "icon": "menu-icon icon-base ti tabler-books",
+      "slug": "admin.books.index"
+    },
+    {
       "menuHeader": "Users & System"
     },
     {

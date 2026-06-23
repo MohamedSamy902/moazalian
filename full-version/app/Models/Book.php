@@ -16,11 +16,17 @@ class Book extends Model
     public $translatable = ['title', 'author'];
 
     protected $casts = [
-        'category' => BookCategory::class,
+        'category'    => BookCategory::class,
+        'is_featured' => 'boolean',
     ];
 
     public function scopeOrdered(Builder $query): Builder
     {
         return $query->orderByDesc('created_at');
+    }
+
+    public function scopeFeatured(Builder $query): Builder
+    {
+        return $query->where('is_featured', true);
     }
 }

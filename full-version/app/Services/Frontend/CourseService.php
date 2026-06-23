@@ -14,6 +14,19 @@ class CourseService
     {
         return $this->courseRepo->findBySlugWithLessons($slug);
     }
-    
-    // Will add Pipeline logic for filtering courses later
+
+    public function getPaginated(array $filters = [])
+    {
+        $query = \App\Models\Course::published()->latest();
+
+        if (!empty($filters['search'])) {
+            $search = mb_substr(strip_tags($filters['search']), 0, 100);
+            $query->where(function ($q) use ($search) {
+                $q->where('title->ar', 'like', "%{$search}%")
+                  ->orWhere('title->en', 'like', "%{$search}%");
+            });
+        }
+
+        return $query->withCount('lessons')->paginate(12)->withQueryString();
+    }
 }

@@ -3,7 +3,7 @@
 @section("content")
 <!-- ══════════════════ HERO — CLEAN MODERN DESIGN ══════════════════ -->
     <section id="hero" class="hero-clean position-relative overflow-hidden" style="margin-top: 80px; padding: 4rem 0 6rem; background: var(--bg); min-height: 85vh; display: flex; align-items: center;">
-      
+
       <!-- Subtle background decoration -->
       <div class="position-absolute top-0 start-0 w-100 h-100 overflow-hidden" style="pointer-events: none; z-index: 0;">
         <div style="position: absolute; top: -10%; right: -5%; width: 400px; height: 400px; background: rgba(196,153,58,0.08); filter: blur(80px); border-radius: 50%;"></div>
@@ -12,12 +12,12 @@
 
       <div class="container position-relative z-3">
         <div class="row align-items-center g-5">
-          
+
           <!-- Content Side -->
           <div class="col-lg-6 hero-content-side reveal" style="--tx: 30px; --ty: 0;">
-            
+
             <h1 class="hero-title mb-4" style="font-size: clamp(2.8rem, 5vw, 4rem); font-weight: 900; line-height: 1.2; color: var(--text);">
-              {{ $sections['hero_title']->value ?? 'باحث ومناظر' }}<br>
+              {{ $sections['hero_title']->value }}<br>
               <span style="color: var(--gold);">{{ $sections['hero_subtitle']->value ?? 'مقارنة الأديان' }}</span>
             </h1>
 
@@ -63,7 +63,7 @@
             <div class="hero-image-box position-relative mx-auto" style="background: var(--card); padding: 12px; border-radius: 24px; box-shadow: var(--shadow); max-width: 450px; border: 1px solid var(--border);">
               <img src="{{ isset($sections['hero_image']) && $sections['hero_image']->value ? asset($sections['hero_image']->value) : asset('front/assets/moaz.jpg') }}" alt="معاذ عليان" class="img-fluid" style="border-radius: 16px; width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: center;">
             </div>
-            
+
             <!-- Floating Socials Below Image -->
             <div class="d-flex justify-content-center gap-3 mt-4">
               <a href="{{ $sections['social_youtube']->value ?? '#' }}" target="_blank" class="ic ic-sm" style="background: rgba(239,68,68,.1); color: var(--red);"><i class="bi bi-youtube"></i></a>
@@ -84,16 +84,10 @@
           <span class="badge-x badge-red flex-shrink-0"><i class="bi bi-broadcast"></i>أحدث المحتوى</span>
           <div class="ticker-wrapper" style="overflow:hidden;flex:1">
             <div class="ticker-inner" id="news-ticker">
-              <span class="ticker-item">الثالوث في المسيحية — حوار ساخن مع خادم أرثوذكسي</span>
-              <span class="ticker-sep">•</span>
-              <span class="ticker-item">مسيحية تعتنق الإسلام وتكشف أسراراً خطيرة</span>
-              <span class="ticker-sep">•</span>
-              <span class="ticker-item">من كتب التوراة؟ دراسة نقدية موثقة بالمصادر</span>
-              <span class="ticker-sep">•</span>
-              <span class="ticker-item">هل قال يسوع إنه الله صراحةً؟ — رد موثق</span>
-              <span class="ticker-sep">•</span>
-              <span class="ticker-item">نبوءات العهد القديم ومحمد ﷺ — دراسة لغوية</span>
-              <span class="ticker-sep">•</span>
+              @foreach($latestVideos as $tickerVideo)
+                <span class="ticker-item">{{ $tickerVideo->getTranslation('title', app()->getLocale()) }}</span>
+                <span class="ticker-sep">•</span>
+              @endforeach
             </div>
           </div>
         </div>
@@ -228,110 +222,58 @@
           <!-- مقالات -->
           <div class="tab-pane fade" id="articles-tab" role="tabpanel">
             <div class="row g-4">
+              @forelse($latestArticles as $article)
               <div class="col-md-4 reveal">
-                <a href="articles.html" class="art-card d-block h-100" style="text-decoration:none">
-                  <div class="art-img" style="background:linear-gradient(135deg,#0d1a2d,#1a2d0d)">
+                <a href="{{ route('articles.show', $article->slug) }}" class="art-card d-block h-100" style="text-decoration:none">
+                  <div class="art-img" style="background:linear-gradient(135deg,#0d1a2d,#1a0d2d)">
                     <i class="art-img-icon bi bi-book-half"></i>
                     <div class="art-img-overlay"></div>
                   </div>
                   <div class="art-body">
-                    <span class="art-cat"><i class="bi bi-tag-fill me-1"></i>نقد كتابي</span>
-                    <div class="art-title">هل الكتاب المقدس كلام الله؟ — دراسة في الأصالة والتحريف</div>
-                    <div class="art-excerpt">يستعرض هذا المقال الأدلة الأكاديمية من المصادر المسيحية ذاتها...</div>
+                    <span class="art-cat"><i class="bi bi-tag-fill me-1"></i>{{ $article->category?->label() ?? 'مقال' }}</span>
+                    <div class="art-title">{{ $article->getTranslation('title', app()->getLocale()) }}</div>
+                    <div class="art-excerpt">{{ \Illuminate\Support\Str::limit($article->getTranslation('excerpt', app()->getLocale()), 100) }}</div>
                     <div class="art-footer">
-                      <div class="art-date"><i class="bi bi-calendar3"></i>يناير ٢٠٢٥</div>
-                      <span class="badge-x badge-gold" style="font-size:.68rem">٨ د قراءة</span>
+                      <div class="art-date"><i class="bi bi-calendar3"></i>{{ $article->published_at?->translatedFormat('F Y') }}</div>
+                      @if($article->read_time)<span class="badge-x badge-gold" style="font-size:.68rem">{{ $article->read_time }} د قراءة</span>@endif
                     </div>
                   </div>
                 </a>
               </div>
-              <div class="col-md-4 reveal">
-                <a href="articles.html" class="art-card d-block h-100" style="text-decoration:none">
-                  <div class="art-img" style="background:linear-gradient(135deg,#1a0d2d,#0d1a2d)">
-                    <i class="art-img-icon bi bi-search"></i>
-                    <div class="art-img-overlay"></div>
-                  </div>
-                  <div class="art-body">
-                    <span class="art-cat"><i class="bi bi-tag-fill me-1"></i>مقارنة أديان</span>
-                    <div class="art-title">الثالوث في التاريخ — متى نشأت هذه العقيدة؟</div>
-                    <div class="art-excerpt">تتبع تاريخي لنشأة عقيدة الثالوث من أصولها إلى مجمع نيقية...</div>
-                    <div class="art-footer">
-                      <div class="art-date"><i class="bi bi-calendar3"></i>مارس ٢٠٢٥</div>
-                      <span class="badge-x badge-gold" style="font-size:.68rem">١٢ د قراءة</span>
-                    </div>
-                  </div>
-                </a>
-              </div>
-              <div class="col-md-4 reveal">
-                <a href="articles.html" class="art-card d-block h-100" style="text-decoration:none">
-                  <div class="art-img" style="background:linear-gradient(135deg,#1a1a0d,#2d1a0d)">
-                    <i class="art-img-icon bi bi-shield-check"></i>
-                    <div class="art-img-overlay"></div>
-                  </div>
-                  <div class="art-body">
-                    <span class="art-cat"><i class="bi bi-tag-fill me-1"></i>رد الشبهات</span>
-                    <div class="art-title">رد على شبهة «الإسلام انتشر بالسيف» — وثائق وأرقام</div>
-                    <div class="art-excerpt">رد موثق بالأرقام والحقائق التاريخية من مؤرخين غربيين...</div>
-                    <div class="art-footer">
-                      <div class="art-date"><i class="bi bi-calendar3"></i>فبراير ٢٠٢٥</div>
-                      <span class="badge-x badge-gold" style="font-size:.68rem">٦ د قراءة</span>
-                    </div>
-                  </div>
-                </a>
-              </div>
+              @empty
+              <div class="col-12 text-center text-muted">لا توجد مقالات حالياً</div>
+              @endforelse
             </div>
-            <div class="text-center mt-4"><a href="articles.html" class="btn btn-outline-gold">عرض كل المقالات <i
-                  class="bi bi-arrow-left ms-1"></i></a></div>
+            <div class="text-center mt-4"><a href="{{ route('articles.index') }}" class="btn btn-outline-gold">عرض كل المقالات <i class="bi bi-arrow-left ms-1"></i></a></div>
           </div>
 
           <!-- ردود سريعة -->
           <div class="tab-pane fade" id="responses-tab" role="tabpanel">
             <div class="row g-4">
+              @forelse($latestQuickResponses as $qr)
               <div class="col-md-4 reveal">
                 <div class="card-x h-100 p-4">
                   <div class="d-flex align-items-center gap-3 mb-3">
                     <span class="ic ic-md ic-red"><i class="bi bi-lightning-charge-fill"></i></span>
                     <span class="badge-x badge-red">رد سريع</span>
                   </div>
-                  <div class="art-title mb-2">هل قال يسوع إنه الله صراحةً؟</div>
-                  <p style="font-size:.83rem;color:var(--text2);line-height:1.8">لا توجد آية واحدة في الأناجيل الأربعة
-                    تقول فيها صراحةً «أنا الله اعبدوني» — الأدلة من نصوصهم...</p>
-                  <div class="mt-3" style="font-size:.75rem;color:var(--text3)"><i class="bi bi-clock me-1"></i>قراءة ٣
-                    دقائق</div>
+                  <div class="art-title mb-2">{{ $qr->getTranslation('title', app()->getLocale()) }}</div>
+                  <p style="font-size:.83rem;color:var(--text2);line-height:1.8">{{ \Illuminate\Support\Str::limit(strip_tags($qr->getTranslation('content', app()->getLocale())), 120) }}</p>
+                  @if($qr->read_time)
+                  <div class="mt-3" style="font-size:.75rem;color:var(--text3)"><i class="bi bi-clock me-1"></i>قراءة {{ $qr->read_time }} دقائق</div>
+                  @endif
                 </div>
               </div>
-              <div class="col-md-4 reveal">
-                <div class="card-x h-100 p-4">
-                  <div class="d-flex align-items-center gap-3 mb-3">
-                    <span class="ic ic-md ic-red"><i class="bi bi-lightning-charge-fill"></i></span>
-                    <span class="badge-x badge-red">رد سريع</span>
-                  </div>
-                  <div class="art-title mb-2">هل وقّع بولس الرسائل المنسوبة إليه؟</div>
-                  <p style="font-size:.83rem;color:var(--text2);line-height:1.8">يُجمع الباحثون أن 7 رسائل فقط من 13 هي
-                    التي كتبها بولس فعلاً — الباقي منتحَل وفق علماء التكوين النقدي...</p>
-                  <div class="mt-3" style="font-size:.75rem;color:var(--text3)"><i class="bi bi-clock me-1"></i>قراءة ٤
-                    دقائق</div>
-                </div>
-              </div>
-              <div class="col-md-4 reveal">
-                <div class="card-x h-100 p-4">
-                  <div class="d-flex align-items-center gap-3 mb-3">
-                    <span class="ic ic-md ic-red"><i class="bi bi-lightning-charge-fill"></i></span>
-                    <span class="badge-x badge-red">رد سريع</span>
-                  </div>
-                  <div class="art-title mb-2">لماذا يختلف إنجيل يوحنا عن الأناجيل الثلاثة؟</div>
-                  <p style="font-size:.83rem;color:var(--text2);line-height:1.8">الفجوة بين يوحنا والأناجيل الإزائية
-                    عميقة جداً — اللاهوت العالي في يوحنا تطور لاحقاً وفق توافق أكاديمي...</p>
-                  <div class="mt-3" style="font-size:.75rem;color:var(--text3)"><i class="bi bi-clock me-1"></i>قراءة ٥
-                    دقائق</div>
-                </div>
-              </div>
+              @empty
+              <div class="col-12 text-center text-muted">لا توجد ردود سريعة حالياً</div>
+              @endforelse
             </div>
           </div>
         </div>
       </div>
     </section>
 
+{{-- [DISABLED] ══ DEBATES SECTION ══ المناظرات متوفرة ضمن الفيديوهات ══
     <!-- ══════════════════ DEBATES SECTION ══════════════════ -->
     <section class="py-5" id="debates-home" style="background:var(--bg)">
       <div class="container">
@@ -360,7 +302,7 @@
                   <div class="d-flex align-items-center gap-2" style="font-size:.82rem;color:rgba(255,255,255,.5)">
                     <i class="bi bi-clock"></i> ٣ ساعات ١٧ دقيقة
                   </div>
-                  <a href="debates.html" class="btn btn-gold btn-sm ms-auto"><i
+                  <a href="#" class="btn btn-gold btn-sm ms-auto"><i
                       class="bi bi-play-circle me-1"></i>مشاهدة</a>
                 </div>
               </div>
@@ -368,7 +310,7 @@
           </div>
           <div class="col-lg-5">
             <div class="d-flex flex-column gap-3">
-              <a href="debates.html" class="card-x p-3 d-flex align-items-center gap-3 reveal"
+              <a href="#" class="card-x p-3 d-flex align-items-center gap-3 reveal"
                 style="text-decoration:none">
                 <span class="ic ic-md ic-gold flex-shrink-0"><i class="bi bi-mic-fill"></i></span>
                 <div>
@@ -379,7 +321,7 @@
                 </div>
                 <i class="bi bi-chevron-left text-gold ms-auto"></i>
               </a>
-              <a href="debates.html" class="card-x p-3 d-flex align-items-center gap-3 reveal"
+              <a href="#" class="card-x p-3 d-flex align-items-center gap-3 reveal"
                 style="text-decoration:none">
                 <span class="ic ic-md ic-teal flex-shrink-0"><i class="bi bi-mic-fill"></i></span>
                 <div>
@@ -390,7 +332,7 @@
                 </div>
                 <i class="bi bi-chevron-left text-gold ms-auto"></i>
               </a>
-              <a href="debates.html" class="card-x p-3 d-flex align-items-center gap-3 reveal"
+              <a href="#" class="card-x p-3 d-flex align-items-center gap-3 reveal"
                 style="text-decoration:none">
                 <span class="ic ic-md ic-green flex-shrink-0"><i class="bi bi-mic-fill"></i></span>
                 <div>
@@ -402,7 +344,7 @@
                 <i class="bi bi-chevron-left text-gold ms-auto"></i>
               </a>
               <div class="text-center pt-2">
-                <a href="debates.html" class="btn btn-outline-gold btn-sm">كل المناظرات <i
+                <a href="#" class="btn btn-outline-gold btn-sm">كل المناظرات <i
                     class="bi bi-arrow-left ms-1"></i></a>
               </div>
             </div>
@@ -410,6 +352,7 @@
         </div>
       </div>
     </section>
+══ END DEBATES SECTION --}}
 
     <!-- ══════════════════ YOUTUBE CTA ══════════════════ -->
     <section class="py-5 bg2" id="yt-cta">
@@ -455,129 +398,111 @@
         <div class="sec-head reveal">
           <div class="sec-eyebrow"><i class="bi bi-book-fill"></i>المكتبة المجانية</div>
           <h2 class="sec-title">مؤلفات معاذ عليان</h2>
-          <p class="sec-sub">+١٥ كتاب إلكتروني ومطبوع — كلها متاحة مجاناً للتحميل</p>
+          <p class="sec-sub">{{ $featuredBooks->count() }}+ كتاب إلكتروني ومطبوع — كلها متاحة مجاناً للتحميل</p>
         </div>
         <div class="row g-4">
+          @php
+            $bookGradients = [
+              'linear-gradient(145deg,#1a1a2e,#16213e,#0f3460)',
+              'linear-gradient(145deg,#1a0a0a,#2d1515,#4a1818)',
+              'linear-gradient(145deg,#0a1a0a,#152d15,#1a4a1a)',
+              'linear-gradient(145deg,#1a0a1a,#2d152d,#4a1a4a)',
+              'linear-gradient(145deg,#0a0a1a,#15152d,#1a1a4a)',
+              'linear-gradient(145deg,#1a150a,#2d2415,#4a3a1a)',
+              'linear-gradient(145deg,#0a1a1a,#152d2d,#1a4a4a)',
+              'linear-gradient(145deg,#1a1a0a,#2d2d15,#4a4a1a)',
+              'linear-gradient(145deg,#1a0a15,#2d1525,#4a1a3a)',
+            ];
+            $bookIcons = ['bi-book-fill','bi-journals','bi-search','bi-shield-check','bi-star-fill','bi-book-half','bi-journal-text','bi-file-earmark-richtext','bi-bookmarks-fill'];
+            $arabicNums = ['٠١','٠٢','٠٣','٠٤','٠٥','٠٦','٠٧','٠٨','٠٩','١٠','١١','١٢'];
+          @endphp
 
+          @forelse($featuredBooks as $bIdx => $featBook)
+          @php
+            $fLocale  = app()->getLocale();
+            $fPdfUrl  = null;
+            if ($featBook->pdf_path) {
+              $fPdfUrl = str_starts_with($featBook->pdf_path, 'http')
+                ? $featBook->pdf_path
+                : asset('storage/' . $featBook->pdf_path);
+            }
+            $fGrad = $bookGradients[$bIdx % count($bookGradients)];
+            $fIcon = $bookIcons[$bIdx % count($bookIcons)];
+            $fNum  = $arabicNums[$bIdx] ?? '++';
+          @endphp
           <div class="col-md-6 col-lg-4 reveal">
             <div class="book-card">
-              <div class="book-cover" style="background:linear-gradient(145deg,#1a1a2e,#16213e,#0f3460)">
-                <div class="book-spine"></div>
-                <div class="book-cover-content">
-                  <div class="book-icon"><i class="bi bi-book-fill"></i></div>
-                  <div class="book-num">٠١</div>
-                </div>
+              <div class="book-cover" style="background:{{ $fGrad }}">
+                @if($featBook->cover_image)
+                  <img src="{{ asset($featBook->cover_image) }}"
+                    style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:inherit;opacity:.85"
+                    alt="{{ $featBook->getTranslation('title', $fLocale) }}">
+                @else
+                  <div class="book-spine"></div>
+                  <div class="book-cover-content">
+                    <div class="book-icon"><i class="bi {{ $fIcon }}"></i></div>
+                    <div class="book-num">{{ $fNum }}</div>
+                  </div>
+                @endif
               </div>
               <div class="book-info">
-                <div class="book-cat"><i class="bi bi-tag-fill me-1"></i>نقد كتابي</div>
-                <h4 class="book-title">عبادة مريم في المسيحية</h4>
-                <div class="book-author">مع محمود عليان — ٢٠٠٩</div>
-                <div class="book-desc">دراسة مقارنة موثقة في تعظيم السيدة مريم بين الإسلام والكنيسة</div>
-                <a href="books.html" class="btn-dl mt-2"><i class="bi bi-download me-1"></i>تحميل <bdi>PDF</bdi></a>
+                <div class="book-cat">
+                  <i class="bi bi-tag-fill me-1"></i>{{ $featBook->category?->label() ?? 'كتاب' }}
+                </div>
+                <h4 class="book-title">{{ \Illuminate\Support\Str::limit($featBook->getTranslation('title', $fLocale), 60) }}</h4>
+                <div class="book-author">{{ $featBook->getTranslation('author', $fLocale) }}{{ $featBook->year ? ' — ' . $featBook->year : '' }}</div>
+                @if($fPdfUrl)
+                  <div class="d-flex gap-1 mt-2">
+                    <a href="{{ $fPdfUrl }}" target="_blank" class="btn-dl flex-fill text-center">
+                      <i class="bi bi-eye me-1"></i>قراءة PDF
+                    </a>
+                    <a href="{{ $fPdfUrl }}" download class="btn-dl" style="background:rgba(196,153,58,.08);padding:.45rem .7rem">
+                      <i class="bi bi-download"></i>
+                    </a>
+                  </div>
+                @else
+                  <a href="{{ route('books.index') }}" class="btn-dl mt-2">
+                    <i class="bi bi-eye me-1"></i>عرض الكتاب
+                  </a>
+                @endif
               </div>
             </div>
           </div>
-
-          <div class="col-md-6 col-lg-4 reveal">
-            <div class="book-card">
-              <div class="book-cover" style="background:linear-gradient(145deg,#1a0a0a,#2d1515,#4a1818)">
-                <div class="book-spine"></div>
-                <div class="book-cover-content">
-                  <div class="book-icon"><i class="bi bi-journals"></i></div>
-                  <div class="book-num">٠٢</div>
-                </div>
-              </div>
-              <div class="book-info">
-                <div class="book-cat"><i class="bi bi-tag-fill me-1"></i>أصالة النص</div>
-                <h4 class="book-title">هل الكتاب المقدس كلام الله؟</h4>
-                <div class="book-author">معاذ عليان — ٢٠١٢</div>
-                <div class="book-desc">مراجعة أكاديمية لأدلة التحريف النصي من مصادر مسيحية غربية</div>
-                <a href="books.html" class="btn-dl mt-2"><i class="bi bi-download me-1"></i>تحميل PDF</a>
-              </div>
-            </div>
+          @empty
+          <div class="col-12 text-center py-4" style="color:var(--text3)">
+            <i class="bi bi-book" style="font-size:3rem"></i>
+            <p class="mt-2">لا توجد كتب مميزة حالياً</p>
           </div>
+          @endforelse
 
-          <div class="col-md-6 col-lg-4 reveal">
-            <div class="book-card">
-              <div class="book-cover" style="background:linear-gradient(145deg,#0a1a0a,#152d15,#1a4a1a)">
-                <div class="book-spine"></div>
-                <div class="book-cover-content">
-                  <div class="book-icon"><i class="bi bi-search"></i></div>
-                  <div class="book-num">٠٣</div>
-                </div>
-              </div>
-              <div class="book-info">
-                <div class="book-cat"><i class="bi bi-tag-fill me-1"></i>نقد أناجيل</div>
-                <h4 class="book-title">من كتب الأناجيل؟</h4>
-                <div class="book-author">معاذ عليان — ٢٠١٥</div>
-                <div class="book-desc">تحليل تاريخي لمؤلفي الأناجيل ومصداقية نسبتها بدليل أكاديمي</div>
-                <a href="books.html" class="btn-dl mt-2"><i class="bi bi-download me-1"></i>تحميل PDF</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-6 col-lg-4 reveal">
-            <div class="book-card">
-              <div class="book-cover" style="background:linear-gradient(145deg,#1a0a1a,#2d152d,#4a1a4a)">
-                <div class="book-spine"></div>
-                <div class="book-cover-content">
-                  <div class="book-icon"><i class="bi bi-shield-check"></i></div>
-                  <div class="book-num">٠٤</div>
-                </div>
-              </div>
-              <div class="book-info">
-                <div class="book-cat"><i class="bi bi-tag-fill me-1"></i>عقيدة</div>
-                <h4 class="book-title">الثالوث بين التاريخ واللاهوت</h4>
-                <div class="book-author">معاذ عليان — ٢٠١٨</div>
-                <div class="book-desc">تتبع تاريخي لنشأة عقيدة الثالوث من بولس حتى مجمع نيقية ٣٢٥م</div>
-                <a href="books.html" class="btn-dl mt-2"><i class="bi bi-download me-1"></i>تحميل PDF</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-6 col-lg-4 reveal">
-            <div class="book-card">
-              <div class="book-cover" style="background:linear-gradient(145deg,#0a0a1a,#15152d,#1a1a4a)">
-                <div class="book-spine"></div>
-                <div class="book-cover-content">
-                  <div class="book-icon"><i class="bi bi-star-fill"></i></div>
-                  <div class="book-num">٠٥</div>
-                </div>
-              </div>
-              <div class="book-info">
-                <div class="book-cat"><i class="bi bi-tag-fill me-1"></i>نبوءات</div>
-                <h4 class="book-title">نبوءات العهد القديم ومحمد ﷺ</h4>
-                <div class="book-author">معاذ عليان — ٢٠٢٠</div>
-                <div class="book-desc">إثبات النبوءات الصريحة بمحمد ﷺ في التوراة والزبور بالأدلة اللغوية</div>
-                <a href="books.html" class="btn-dl mt-2"><i class="bi bi-download me-1"></i>تحميل PDF</a>
-              </div>
-            </div>
-          </div>
-
+          {{-- "View All" card --}}
+          @if($featuredBooks->count() > 0)
           <div class="col-md-6 col-lg-4 reveal">
             <div class="book-card" style="border-color:var(--border2)">
               <div class="book-cover" style="background:linear-gradient(145deg,#c4993a22,#1a1a1a,#0d1018)">
                 <div class="book-spine" style="background:var(--gold)"></div>
                 <div class="book-cover-content">
                   <div class="book-icon" style="color:var(--gold)"><i class="bi bi-grid-3x3-gap-fill"></i></div>
-                  <div class="book-num" style="color:var(--gold)">+١٠</div>
+                  <div class="book-num" style="color:var(--gold)">+</div>
                 </div>
               </div>
               <div class="book-info">
-                <div class="book-cat" style="color:var(--gold)"><i class="bi bi-archive-fill me-1"></i>المكتبة الكاملة
-                </div>
-                <h4 class="book-title" style="color:var(--gold)">كتب أخرى في المكتبة</h4>
-                <div class="book-author">ردود + دراسات + محاضرات</div>
-                <div class="book-desc">الردود الموجزة على الشبهات، مريم في الإسلام، السيرة المقارنة، والمزيد</div>
-                <a href="books.html" class="btn-gold btn-sm mt-2 d-inline-flex align-items-center gap-2"><i
-                    class="bi bi-arrow-left"></i>عرض الكل</a>
+                <div class="book-cat" style="color:var(--gold)"><i class="bi bi-archive-fill me-1"></i>المكتبة الكاملة</div>
+                <h4 class="book-title" style="color:var(--gold)">كل المؤلفات</h4>
+                <div class="book-author">كتب + بحوث + مقالات</div>
+                <a href="{{ route('books.index') }}" class="btn-gold btn-sm mt-2 d-inline-flex align-items-center gap-2">
+                  <i class="bi bi-arrow-left"></i>عرض الكل
+                </a>
               </div>
             </div>
           </div>
+          @endif
 
         </div>
       </div>
     </section>
+
+
 
     <!-- ══════════════════ DONATIONS SECTION ══════════════════ -->
     <section class="py-5" id="donations" style="background:var(--bg)">
@@ -678,7 +603,7 @@
               <h4 style="font-size:1rem;color:var(--text);margin:0">دعم شهري</h4>
               <p style="font-size:.82rem;color:var(--text2);line-height:1.7;flex:1">اشترك بمبلغ شهري ثابت وكن جزءاً
                 دائماً من هذه الرسالة</p>
-              <a href="contact.html#support" class="btn w-100"
+              <a href="{{ route('contact') }}#support" class="btn w-100"
                 style="border-radius:30px;background:linear-gradient(135deg,#a855f7,#7c3aed);color:#fff;font-weight:700">
                 <i class="bi bi-lightning-fill me-1"></i>أصبح داعماً
               </a>

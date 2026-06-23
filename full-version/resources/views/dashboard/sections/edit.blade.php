@@ -46,7 +46,7 @@
 
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('admin.sections.update', $section_name) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.sections.update', ['page' => $page, 'section_name' => $section_name]) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 

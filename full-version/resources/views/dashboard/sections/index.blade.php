@@ -1,5 +1,4 @@
 @extends('layouts.layoutMaster')
-
 @section('title', __('Interface Settings'))
 
 @section('content')
@@ -23,12 +22,28 @@
             <div class="card h-100">
                 <div class="card-body text-center">
                     <div class="mb-3">
-                        <span class="badge bg-label-primary p-3 rounded"><i class="ti ti-layout-dashboard fs-3"></i></span>
+                        @php
+                            $icon = match($section->section_name) {
+                                'seo'       => 'ti-search',
+                                'hero'      => 'ti-home',
+                                'socials'   => 'ti-social',
+                                'hero_stats'=> 'ti-chart-bar',
+                                'why_moaz'  => 'ti-user-check',
+                                'yt_cta'    => 'ti-brand-youtube',
+                                'donations' => 'ti-heart',
+                                default     => 'ti-layout-dashboard',
+                            };
+                        @endphp
+                        <span class="badge bg-label-{{ $section->section_name === 'seo' ? 'warning' : 'primary' }} p-3 rounded">
+                            <i class="ti {{ $icon }} fs-3"></i>
+                        </span>
                     </div>
                     <h5 class="card-title mb-1">{{ $section->name_ar }}</h5>
                     <p class="text-muted mb-3">{{ $section->count }} {{ __('Editable Items') }}</p>
-                    <a href="{{ route('admin.sections.edit', $section->section_name) }}" class="btn btn-primary w-100">
-                        <i class="ti ti-edit me-1"></i> {{ __('Edit Content') }}
+                    <a href="{{ route('admin.sections.edit', ['page' => $section->page, 'section_name' => $section->section_name]) }}"
+                       class="btn btn-{{ $section->section_name === 'seo' ? 'warning' : 'primary' }} w-100">
+                        <i class="ti {{ $section->section_name === 'seo' ? 'ti-seo' : 'ti-edit' }} me-1"></i>
+                        {{ $section->section_name === 'seo' ? 'تعديل SEO' : __('Edit Content') }}
                     </a>
                 </div>
             </div>

@@ -138,6 +138,46 @@
             <label class="form-check-label fw-bold" for="v-is-published">{{ __('Published') }}</label>
         </div>
     </div>
+
+    {{-- SEO Section --}}
+    <div class="col-12 mt-4 mb-2">
+        <hr>
+        <div class="d-flex align-items-center gap-2 mb-3">
+            <h6 class="fw-bold mb-0"><i class="ti ti-search text-primary me-1"></i>تحسين محركات البحث (SEO)</h6>
+            <span class="badge bg-label-info">اختياري</span>
+        </div>
+        <p class="text-muted small">اتركها فارغة لاستخدام عنوان الفيديو ووصفه تلقائياً</p>
+    </div>
+    <div class="col-md-6">
+        <label class="form-label text-success small">SEO Title (عربي)</label>
+        <input type="text" name="seo_title[ar]" class="form-control form-control-sm" maxlength="255"
+               value="{{ isset($video) ? $video->getTranslation('seo_title','ar',false) : '' }}"
+               placeholder="عنوان صفحة البحث...">
+    </div>
+    <div class="col-md-6">
+        <label class="form-label text-info small">SEO Title (إنجليزي)</label>
+        <input type="text" name="seo_title[en]" class="form-control form-control-sm" maxlength="255"
+               value="{{ isset($video) ? $video->getTranslation('seo_title','en',false) : '' }}">
+    </div>
+    <div class="col-md-6">
+        <label class="form-label text-success small">SEO Description (عربي)</label>
+        <textarea name="seo_description[ar]" class="form-control form-control-sm" rows="2" maxlength="500">{{ isset($video) ? $video->getTranslation('seo_description','ar',false) : '' }}</textarea>
+    </div>
+    <div class="col-md-6">
+        <label class="form-label text-info small">SEO Description (إنجليزي)</label>
+        <textarea name="seo_description[en]" class="form-control form-control-sm" rows="2" maxlength="500">{{ isset($video) ? $video->getTranslation('seo_description','en',false) : '' }}</textarea>
+    </div>
+    <div class="col-md-6">
+        <label class="form-label text-success small">SEO Keywords (عربي) — مفصول بفاصلة</label>
+        <input type="text" name="seo_keywords[ar]" class="form-control form-control-sm"
+               value="{{ isset($video) ? $video->getTranslation('seo_keywords','ar',false) : '' }}"
+               placeholder="معاذ عليان, مقارنة الأديان, ...">
+    </div>
+    <div class="col-md-6">
+        <label class="form-label text-info small">SEO Keywords (إنجليزي)</label>
+        <input type="text" name="seo_keywords[en]" class="form-control form-control-sm"
+               value="{{ isset($video) ? $video->getTranslation('seo_keywords','en',false) : '' }}">
+    </div>
   </form>
 </div>
 

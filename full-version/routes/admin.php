@@ -37,7 +37,15 @@ Route::middleware([
 
     // Sections Management
     Route::get('sections', [\App\Http\Controllers\Dashboard\SectionController::class, 'index'])->name('sections.index');
-    Route::get('sections/{section_name}/edit', [\App\Http\Controllers\Dashboard\SectionController::class, 'edit'])->name('sections.edit');
-    Route::put('sections/{section_name}', [\App\Http\Controllers\Dashboard\SectionController::class, 'update'])->name('sections.update');
+    Route::get('sections/{page}/{section_name}/edit', [\App\Http\Controllers\Dashboard\SectionController::class, 'edit'])->name('sections.edit');
+    Route::put('sections/{page}/{section_name}', [\App\Http\Controllers\Dashboard\SectionController::class, 'update'])->name('sections.update');
+
+    // Books Management
+    Route::patch('books/{book}/toggle-featured', [\App\Http\Controllers\Dashboard\BookController::class, 'toggleFeatured'])->name('books.toggle-featured');
+    Route::resource('books', \App\Http\Controllers\Dashboard\BookController::class);
+
+    // Articles Management
+    Route::patch('articles/{article}/toggle-published', [\App\Http\Controllers\Dashboard\ArticleController::class, 'togglePublished'])->name('articles.toggle-published');
+    Route::resource('articles', \App\Http\Controllers\Dashboard\ArticleController::class);
   }
 );

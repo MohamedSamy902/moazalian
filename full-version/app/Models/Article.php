@@ -13,12 +13,20 @@ class Article extends Model
     use HasTranslations, SoftDeletes;
 
     protected $guarded = [];
-    public $translatable = ['title', 'body', 'excerpt'];
+
+    /** Translatable content fields + SEO fields */
+    public $translatable = ['title', 'body', 'excerpt', 'seo_title', 'seo_description', 'seo_keywords'];
 
     protected $casts = [
         'category'     => ArticleCategory::class,
         'published_at' => 'datetime',
     ];
+
+    /** Convenience accessor — consistent with VideoService usage */
+    public function getIsPublishedAttribute(): bool
+    {
+        return $this->published_at !== null;
+    }
 
     public function scopeOrdered(Builder $query): Builder
     {

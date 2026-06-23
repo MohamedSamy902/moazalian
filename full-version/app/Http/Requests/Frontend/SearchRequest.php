@@ -18,9 +18,10 @@ class SearchRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'search'   => 'nullable|string|max:100|regex:/^[\p{L}\p{N}\s\-_]+$/u',
-            'category' => 'nullable|string|max:50|alpha_dash',
-            'page'     => 'nullable|integer|min:1|max:1000',
+            'search'   => 'nullable|string|max:200',   // removed restrictive regex — titles contain emoji 🔥💥
+            'category' => 'nullable|string|max:50',
+            'sort'     => 'nullable|string|in:newest,oldest,popular,duration',
+            'page'     => 'nullable|integer|min:1|max:9999',
             'per_page' => 'nullable|integer|min:6|max:48',
         ];
     }

@@ -13,7 +13,7 @@ class HomeController extends Controller
     public function index()
     {
         $data = $this->homeService->getHomeData();
-        // dd($data);
+        // dd($data['sections']['hero_title']->value);
         // The view will receive the cached payload
         return view('frontend.index', $data);
     }

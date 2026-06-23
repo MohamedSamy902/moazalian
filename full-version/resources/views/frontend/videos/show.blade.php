@@ -1,5 +1,38 @@
 @extends("frontend.layouts.master")
 
+@php
+    $locale      = app()->getLocale();
+    $videoTitle  = $video->getTranslation('title', $locale);
+    $videoDesc   = strip_tags($video->getTranslation('description', $locale));
+    $videoDesc   = \Illuminate\Support\Str::limit($videoDesc, 160);
+
+    // Resolve thumbnail for OG
+    $ogImage = null;
+    if ($video->thumbnail) {
+        $ogImage = str_starts_with($video->thumbnail, 'http') ? $video->thumbnail : asset($video->thumbnail);
+    }
+    if (!$ogImage && $video->video_type == 'external' && str_contains($video->video_url, 'youtube.com/watch?v=')) {
+        parse_str(parse_url($video->video_url, PHP_URL_QUERY), $_ytVars);
+        $_ytId = $_ytVars['v'] ?? null;
+        if ($_ytId) $ogImage = "https://img.youtube.com/vi/{$_ytId}/maxresdefault.jpg";
+    }
+    $ogImage = $ogImage ?? asset('front/assets/og-image.jpg');
+@endphp
+
+@php
+    // Use custom SEO if set in DB, otherwise fall back to video title/desc
+    $seoTitle       = $video->getTranslation('seo_title', $locale) ?: ($videoTitle . ' | معاذ عليان');
+    $seoDescription = $video->getTranslation('seo_description', $locale) ?: ($videoDesc ?: 'فيديو من قناة معاذ عليان في مقارنة الأديان');
+    $seoKeywords    = $video->getTranslation('seo_keywords', $locale) ?: 'معاذ عليان, مقارنة الأديان, مناظرة';
+@endphp
+
+@section('title', $seoTitle)
+@section('meta_description', $seoDescription)
+@section('meta_keywords', $seoKeywords)
+@section('og_title', $seoTitle)
+@section('og_description', $seoDescription)
+@section('og_image', $ogImage)
+
 @section("content")
 <section class="py-5" style="margin-top: 80px; min-height: 80vh;">
     <div class="container">

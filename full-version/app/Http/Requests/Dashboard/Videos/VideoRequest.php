@@ -37,6 +37,7 @@ class VideoRequest extends FormRequest
                 'max:204800', // 200 MB
                 Rule::requiredIf(fn () => $isStore && $this->input('video_type') === 'upload'),
             ],
+            'thumbnail'            => 'nullable|image|max:5120',
             'description.ar'       => 'nullable|string|max:5000',
             'description.en'       => 'nullable|string|max:5000',
             'category'             => ['nullable', Rule::enum(VideoCategory::class)],
@@ -49,6 +50,13 @@ class VideoRequest extends FormRequest
             'references.*.type'    => 'required_with:references|in:upload,link,text',
             'references.*.content' => 'nullable|string|max:2000',
             'references.*.file'    => 'nullable|file|mimes:pdf,doc,docx,mp4,mov,ogg,qt|max:204800',
+            // SEO fields
+            'seo_title.ar'         => 'nullable|string|max:255',
+            'seo_title.en'         => 'nullable|string|max:255',
+            'seo_description.ar'   => 'nullable|string|max:500',
+            'seo_description.en'   => 'nullable|string|max:500',
+            'seo_keywords.ar'      => 'nullable|string|max:500',
+            'seo_keywords.en'      => 'nullable|string|max:500',
         ];
     }
 

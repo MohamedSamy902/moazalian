@@ -579,8 +579,8 @@ function applyLanguage() {
   const supportBtn = document.querySelector('a[href="contact.html#support"]');
   if(supportBtn) supportBtn.innerHTML = `<i class="bi bi-heart-fill"></i>${translations[lang].support}`;
   
-  const heroTitle = document.querySelector('.hero-title');
-  if(heroTitle) heroTitle.innerHTML = translations[lang].hero_title;
+  // const heroTitle = document.querySelector('.hero-title');
+  // if(heroTitle) heroTitle.innerHTML = translations[lang].hero_title;
   
   const heroDesc = document.querySelector('.hero-desc');
   if(heroDesc) heroDesc.innerHTML = translations[lang].hero_desc;
