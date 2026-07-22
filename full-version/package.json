@@ -28,7 +28,7 @@
     "@fullcalendar/timegrid": "6.1.17",
     "@fullcalendar/timeline": "6.1.17",
     "@iconify/json": "2.2.342",
-    "@iconify/tools": "4.1.2",
+    "@iconify/tools": "4.2.0",
     "@iconify/types": "2.0.0",
     "@iconify/utils": "2.3.0",
     "@popperjs/core": "2.11.8",
